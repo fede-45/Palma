@@ -504,44 +504,9 @@ function VideoPage(){
   return(
     <div className="page fi">
       <p className="ph">🎬 Video</p>
-      <p className="ps">Guardalo <b>prima di venire in classe</b> — è la parte "capovolta" del Flipped Classroom</p>
-
-      <div className="card" style={{padding:0,overflow:'hidden',marginBottom:'.75rem',borderColor:'rgba(249,115,22,.3)'}}>
-        <div style={{height:'160px',background:'linear-gradient(135deg, var(--orgb) 0%, rgba(7,17,30,0) 100%)',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'.6rem',borderBottom:'1px solid rgba(249,115,22,.15)'}}>
-          <span style={{fontSize:'3rem'}}>🎬</span>
-          <span style={{fontSize:'.6rem',letterSpacing:'.08em',color:'var(--org)',background:'rgba(249,115,22,.12)',padding:'.2rem .7rem',borderRadius:'3px',border:'1px solid rgba(249,115,22,.25)',fontWeight:600}}>▶ IN PREPARAZIONE</span>
-        </div>
-        <div style={{padding:'1rem'}}>
-          <h3 style={{fontFamily:'DM Serif Display,serif',fontSize:'1.05rem',marginBottom:'.4rem'}}>Organizzazione delle Emergenze in Mare</h3>
-          <p style={{color:'var(--txt2)',fontSize:'.8rem',lineHeight:1.7,marginBottom:'.75rem'}}>
-            Il video accompagna l'intera lezione — dall'organizzazione SAR internazionale alla catena di comando a bordo, dai sistemi di allerta ai drills obbligatori.
-          </p>
-          <div className="div" style={{margin:'.6rem 0'}}/>
-          <p style={{fontSize:'.75rem',fontWeight:600,marginBottom:'.5rem',color:'var(--txt)'}}>Cosa mostra</p>
-          {[
-            {i:'⏱️',t:'Timeline SAR animata',d:'Da T+0 (EPIRB) a T+X (Place of Safety) — chi fa cosa e quando'},
-            {i:'🏢',t:'Organigramma MRCC Italia',d:'Struttura reale del MRCC Roma e dei MRSC regionali'},
-            {i:'👥',t:'Catena di comando a bordo',d:'Master → Safety Officer → ERT in azione durante un drill'},
-            {i:'📋',t:'Muster List e muster drill',d:'Come si legge, come si esegue — riprese da bordo reale'},
-            {i:'🔥',t:'Fire Team e sistemi antincendio',d:'Pannello allarme, CO₂, Fireman\'s Outfit — dal rilevatore all\'intervento'},
-            {i:'📡',t:'GMDSS e attivazione SAR',d:'EPIRB → Cospas-Sarsat → MRCC → unità SAR in moto'},
-          ].map(s=>(
-            <div key={s.t} style={{display:'flex',gap:'.6rem',padding:'.4rem 0',borderBottom:'1px solid var(--border)',alignItems:'flex-start'}}>
-              <span style={{flexShrink:0,fontSize:'1rem'}}>{s.i}</span>
-              <div>
-                <p style={{fontSize:'.8rem',fontWeight:500}}>{s.t}</p>
-                <p style={{fontSize:'.73rem',color:'var(--txt3)',marginTop:'.1rem'}}>{s.d}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="card" style={{background:'rgba(226,168,54,.07)',border:'1px solid rgba(226,168,54,.18)',padding:'.75rem'}}>
-        <p style={{fontSize:'.78rem',color:'var(--gold2)',fontWeight:600,marginBottom:'.35rem'}}>📌 Prima di guardare</p>
-        <p style={{fontSize:'.76rem',color:'var(--txt2)',lineHeight:1.7}}>
-          Tieni a mente la domanda centrale: <em>"Chi lo attiva, chi lo gestisce, e cosa scatta nell'organizzazione?"</em> — ti aiuterà a connettere ogni sequenza del video con gli argomenti trattati in classe.
-        </p>
+      <div style={{height:'220px',background:'linear-gradient(135deg, var(--orgb) 0%, rgba(7,17,30,0) 100%)',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'.75rem',borderRadius:'var(--r)',border:'1px solid rgba(249,115,22,.2)'}}>
+        <span style={{fontSize:'3.5rem'}}>🎬</span>
+        <span style={{fontSize:'.65rem',letterSpacing:'.08em',color:'var(--org)',background:'rgba(249,115,22,.12)',padding:'.25rem .8rem',borderRadius:'4px',border:'1px solid rgba(249,115,22,.3)',fontWeight:600}}>▶ IN PREPARAZIONE</span>
       </div>
     </div>
   );
@@ -660,7 +625,7 @@ function AboutPage(){
   return(
     <div className="page fi">
       <p className="ph">👥 Chi Siamo</p>
-      <p className="ps">Progetto SafeSea — Flipped Classroom A.S. 2024/25</p>
+      <p className="ps">Progetto SafeSea — Flipped Classroom A.S. 2025/26</p>
       <div className="card" style={{marginBottom:'.6rem'}}>
         <p style={{fontWeight:600,fontSize:'.82rem',color:'var(--gold)',marginBottom:'.65rem'}}>📌 Il Progetto</p>
         <p style={{color:'var(--txt2)',fontSize:'.84rem',lineHeight:1.85,marginBottom:'.65rem'}}>
@@ -862,8 +827,8 @@ const storiaEvents=[
   {
     anno:1912,tipo:'disastro',titolo:'Naufragio del Titanic',
     icona:'🧊',colore:'#3b9fe8',
-    breve:'1.503 morti nell\'Atlantico del Nord — la tragedia che cambiò tutto',
-    dettaglio:'Nella notte tra il 14 e 15 aprile 1912 il transatlantico RMS Titanic urta un iceberg durante il viaggio inaugurale da Southampton a New York. Affonda in 2 ore e 40 minuti trascinando con sé 1.503 persone su 2.224 a bordo. Le cause principali della strage: scialuppe insufficienti (solo 20 per 2.224 persone), nessuna procedura di muster drill, radio non presidiata h24, nessuna zona SAR organizzata. Il disastro, amplificato dai media, scuote l\'opinione pubblica mondiale e costringe i governi ad agire.',
+    breve:'~1.500 morti nell\'Atlantico del Nord — la tragedia che cambiò tutto',
+    dettaglio:'Nella notte tra il 14 e 15 aprile 1912 il transatlantico RMS Titanic urta un iceberg durante il viaggio inaugurale da Southampton a New York. Affonda in 2 ore e 40 minuti trascinando con sé ~1.500 persone su 2.224 a bordo. Le cause principali della strage: scialuppe insufficienti (solo 20 per 2.224 persone), nessuna procedura di muster drill, radio non presidiata h24, nessuna zona SAR organizzata. Il disastro, amplificato dai media, scuote l\'opinione pubblica mondiale e costringe i governi ad agire.',
     norma:'→ Catalizzatore diretto della prima SOLAS (1914)',
   },
   {
@@ -898,7 +863,7 @@ const storiaEvents=[
     anno:1948,tipo:'norma',titolo:'Nascita dell\'IMCO — poi diventata IMO',
     icona:'🌐',colore:'#e2a836',
     breve:'A Ginevra nasce l\'organismo internazionale che governa la sicurezza marittima',
-    dettaglio:'Nel 1948 a Ginevra, nell\'ambito della nascente ONU, viene firmata la Convenzione istitutiva dell\'IMCO — Inter-Governmental Maritime Consultive Organization. Entra in vigore nel 1958 con sede a Londra. Nel 1982 viene rinominata IMO (International Maritime Organization). Il suo primo compito: adottare una nuova SOLAS aggiornata. L\'IMO diventa il centro mondiale per la legislazione marittima: oggi conta 175 Stati membri e produce le convenzioni che regolano sicurezza, inquinamento, formazione e comunicazioni di emergenza.',
+    dettaglio:'Nel 1948 a Ginevra, nell\'ambito della nascente ONU, viene firmata la Convenzione istitutiva dell\'IMCO — Inter-Governmental Maritime Consultive Organization. Entra in vigore nel 1958 con sede a Londra. Nel 1982 viene rinominata IMO (International Maritime Organization). Il suo primo compito: adottare una nuova SOLAS aggiornata. L\'IMO diventa il centro mondiale per la legislazione marittima: oggi conta 176 Stati membri e produce le convenzioni che regolano sicurezza, inquinamento, formazione e comunicazioni di emergenza.',
     norma:'Convenzione istitutiva IMCO 1948 → IMO 1982',
   },
   {
