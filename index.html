@@ -502,11 +502,18 @@ function ModuleDetail({mid,setPage}){
 /* ══ VIDEO PAGE — unico video ══ */
 function VideoPage(){
   return(
-    <div className="page fi">
-      <p className="ph">🎬 Video</p>
-      <div style={{height:'220px',background:'linear-gradient(135deg, var(--orgb) 0%, rgba(7,17,30,0) 100%)',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'.75rem',borderRadius:'var(--r)',border:'1px solid rgba(249,115,22,.2)'}}>
-        <span style={{fontSize:'3.5rem'}}>🎬</span>
-        <span style={{fontSize:'.65rem',letterSpacing:'.08em',color:'var(--org)',background:'rgba(249,115,22,.12)',padding:'.25rem .8rem',borderRadius:'4px',border:'1px solid rgba(249,115,22,.3)',fontWeight:600}}>▶ IN PREPARAZIONE</span>
+    <div className="fi">
+      <div style={{background:'#000',borderBottom:'1px solid rgba(255,255,255,.08)'}}>
+        <iframe
+          src="https://drive.google.com/file/d/1SQXY0bwCr8nw5Tci6ASd49K7HMrmH7Lf/preview"
+          style={{width:'100%',aspectRatio:'16/9',border:'none',display:'block'}}
+          allow="autoplay"
+          allowFullScreen
+        />
+      </div>
+      <div className="page" style={{paddingTop:'.75rem'}}>
+        <p style={{fontFamily:'DM Serif Display,serif',fontSize:'1.1rem',marginBottom:'.2rem'}}>Organizzazione delle Emergenze in Mare</p>
+        <p style={{fontSize:'.78rem',color:'var(--txt2)',lineHeight:1.65}}>Guardalo <b style={{color:'var(--txt)'}}>prima di venire in classe</b> — è la parte "capovolta" del Flipped Classroom.</p>
       </div>
     </div>
   );
