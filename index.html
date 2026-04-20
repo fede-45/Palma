@@ -81,6 +81,53 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
 .tl-dot{width:25px;height:25px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;border:1px solid;z-index:1;}
 
 ::-webkit-scrollbar{display:none;}
+/* ACRONYM POPUP */
+.acr{
+  display:inline-block;
+  color:var(--gold2);
+  border-bottom:1px dashed var(--gold2);
+  cursor:pointer;
+  font-weight:600;
+  -webkit-tap-highlight-color:transparent;
+}
+.acr:hover{color:var(--gold);}
+.acr-overlay{
+  position:fixed;inset:0;z-index:9998;
+  background:rgba(7,17,30,.7);
+  backdrop-filter:blur(4px);
+  display:flex;align-items:flex-end;
+  animation:fuIn .18s ease;
+}
+@keyframes fuIn{from{opacity:0}to{opacity:1}}
+.acr-box{
+  background:#0d1c2e;
+  border:1px solid rgba(226,168,54,.3);
+  border-radius:16px 16px 0 0;
+  padding:1.25rem 1.25rem 2rem;
+  width:100%;max-width:600px;margin:0 auto;
+  animation:slideUp .22s ease;
+}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.acr-pill{
+  display:inline-block;
+  background:var(--golddim);color:var(--gold2);
+  border:1px solid rgba(226,168,54,.3);
+  border-radius:999px;padding:.2rem .7rem;
+  font-size:.68rem;font-weight:700;
+  letter-spacing:.04em;margin-bottom:.65rem;
+}
+
+/* SLIDES SHIMMER */
+@keyframes shimmer{
+  0%{background-position:-200% center;}
+  100%{background-position:200% center;}
+}
+.slide-shine{
+  background:linear-gradient(90deg,var(--bg) 0%,rgba(226,168,54,.08) 50%,var(--bg) 100%);
+  background-size:200% auto;
+  animation:shimmer 3s linear infinite;
+}
+
 </style>
 </head>
 <body>
@@ -288,6 +335,90 @@ const normaRefs=[
   {code:'COLREG 1972',year:'emend. 2007',mods:['NAV'],desc:'Uso pratico di radar, AIS e ECDIS nella prevenzione degli abbordi in mare.'},
 ];
 
+
+/* ══ ACRONYM SYSTEM ══ */
+const ACRONYMS={
+  'SOLAS':['Safety Of Life At Sea','Convenzione IMO che stabilisce gli standard minimi di sicurezza per la costruzione e il funzionamento delle navi mercantili. Prima versione 1914, attualmente in vigore quella del 1974.'],
+  'IMO':['International Maritime Organization','Agenzia specializzata dell'ONU per la regolamentazione del trasporto marittimo internazionale. Sede a Londra, 176 Stati membri.'],
+  'SAR':['Search and Rescue','Sistema internazionale di ricerca e soccorso in mare, organizzato in Search and Rescue Regions (SRR) con un MRCC responsabile per ciascuna.'],
+  'MRCC':['Maritime Rescue Coordination Centre','Centro di coordinamento del soccorso marittimo. In Italia: MRCC Roma (Guardia Costiera), attivo 24h/365g, numero emergenza 1530.'],
+  'MRSC':['Maritime Rescue Sub-Centre','Centro secondario di soccorso marittimo, dipende dall'MRCC. In Italia: Genova, Napoli, Palermo, Catania.'],
+  'OSC':['On-Scene Coordinator','Nave o aeromobile designato dall'MRCC per coordinare le unità SAR direttamente sul luogo dell'emergenza.'],
+  'GMDSS':['Global Maritime Distress and Safety System','Sistema globale di comunicazioni di emergenza e sicurezza in mare, introdotto nella SOLAS nel 1988. Sostituisce il codice Morse.'],
+  'EPIRB':['Emergency Position-Indicating Radio Beacon','Radiofaro di emergenza che trasmette su 406 MHz via satellite Cospas-Sarsat. Localizzazione <100 m, autonomia ≥48 ore.'],
+  'SART':['Search and Rescue Transponder','Radar transponder che risponde alle scansioni radar con 12 punti sul display del soccorritore. Portata ~5 nm da nave.'],
+  'AIS':['Automatic Identification System','Sistema di identificazione automatica che trasmette posizione, rotta e velocità della nave ogni 2-10 secondi. Obbligatorio su navi ≥300 GT.'],
+  'DSC':['Digital Selective Calling','Sistema di chiamata digitale selettiva usato su VHF Ch.70 per trasmettere automaticamente allerte di soccorso con MMSI e posizione GPS.'],
+  'VHF':['Very High Frequency','Banda radio (156-174 MHz) usata per le comunicazioni marittime a corta distanza (~20-50 nm). Ch.16 per emergenze, Ch.70 per DSC.'],
+  'MHF':['Medium/High Frequency','Bande radio per comunicazioni marittime a media-lunga distanza. MF: ~150-400 nm (area A2), HF: portata mondiale via ionosfera (area A3/A4).'],
+  'LSA':['Life-Saving Appliances','Mezzi di salvataggio a bordo: giubbotti, mute, anelli, scialuppe, zattere. Regolati dal LSA Code (MSC.48(66)) e SOLAS Cap.III.'],
+  'ISM':['International Safety Management Code','Codice IMO che impone un Safety Management System (SMS) su ogni nave. Obbligatorio dal 1998, aggiornato nel 2021 con il cyber risk.'],
+  'SMS':['Safety Management System','Manuale operativo di sicurezza della nave, richiesto dall'ISM Code. Descrive procedure, responsabilità e protocolli per ogni tipo di emergenza.'],
+  'DOC':['Document of Compliance','Certificato che attesta la conformità della compagnia di navigazione all'ISM Code. Rilasciato dal flag State, validità 5 anni.'],
+  'SMC':['Safety Management Certificate','Certificato che attesta la conformità della singola nave all'ISM Code. Rilasciato dal flag State, validità 5 anni.'],
+  'STCW':['Standards of Training, Certification and Watchkeeping','Convenzione IMO del 1978 che stabilisce gli standard minimi di formazione per i marittimi. Emendamenti Manila 2010 attualmente in vigore.'],
+  'ISPS':['International Ship and Port Facility Security Code','Codice IMO del 2002 (post-11 settembre) per la sicurezza navi e porti da minacce esterne. Introduce tre livelli di sicurezza.'],
+  'ERT':['Emergency Response Team','Squadra a bordo designata per rispondere a emergenze specifiche: Fire Team, Rescue Team, Medical Team, Damage Control Team.'],
+  'HRU':['Hydrostatic Release Unit','Dispositivo idrostatico che sgancia automaticamente la zattera di salvataggio a 1,5-4 m di profondità. Scadenza obbligatoria ogni 2 anni.'],
+  'VDR':['Voyage Data Recorder','Scatola nera della nave. Registra le ultime 12 ore di posizione, rotta, audio plancia, radar. Obbligatoria su navi ≥3000 GT.'],
+  'ECDIS':['Electronic Chart Display and Information System','Sistema di carte nautiche elettroniche integrato con GPS, AIS e radar. Sostituisce le carte cartacee come obbligatorio per molte categorie di navi.'],
+  'ARPA':['Automatic Radar Plotting Aid','Radar con calcolo automatico di CPA (distanza minima) e TCPA (tempo al CPA) per ogni bersaglio. Essenziale per la prevenzione delle collisioni.'],
+  'CPA':['Closest Point of Approach','Distanza minima prevista tra due navi se mantengono rotta e velocità. Calcolata automaticamente dall'ARPA in combinazione con il TCPA.'],
+  'TCPA':['Time to Closest Point of Approach','Tempo mancante al punto di massimo avvicinamento tra due navi. Usato insieme al CPA per valutare il rischio di collisione.'],
+  'COLREG':['Convention on International Regulations for Preventing Collisions at Sea','Regolamento IMO del 1972 che stabilisce le "regole della strada" in mare: precedenze, fanali, segnali sonori, separazioni del traffico.'],
+  'MARPOL':['Marine Pollution Convention','Convenzione IMO che regola la prevenzione dell'inquinamento da navi. Vieta gli scarichi di idrocarburi e introduce il doppio scafo per i tanker.'],
+  'NAVTEX':['Navigational Telex','Sistema automatico di ricezione di avvisi nautici, meteomarine e comunicati SAR su 518 kHz. Portata ~400 nm, nessuna guardia radio.'],
+  'IAMSAR':['International Aeronautical and Maritime Search and Rescue Manual','Manuale IMO/ICAO in 3 volumi: organizzazione SAR, coordinamento missioni, mezzi mobili. Edizione 2022 attualmente in vigore.'],
+  'MMSI':['Maritime Mobile Service Identity','Numero identificativo univoco a 9 cifre assegnato a ogni nave. Trasmesso automaticamente da AIS, DSC ed EPIRB nelle allerte di emergenza.'],
+  'BNWAS':['Bridge Navigational Watch Alarm System','Sistema anti-addormentamento: allerta progressiva se l'ufficiale di guardia non interagisce entro 3-12 minuti. Obbligatorio su navi ≥150 GT.'],
+  'SRR':['Search and Rescue Region','Area geografica di responsabilità SAR assegnata a uno Stato. Copre anche acque internazionali. L'Italia gestisce il Mediterraneo centrale.'],
+  'MSI':['Maritime Safety Information','Avvisi nautici, meteomarine e comunicati SAR distribuiti automaticamente via NAVTEX e SafetyNET a tutte le navi in zona.'],
+  'TPA':['Thermal Protective Aid','Borsa isolante che riduce la perdita di calore per convezione in acqua fredda. Copertura ≥80% del corpo, inclusa nelle zattere SOLAS.'],
+  'PPE':['Personal Protective Equipment','Dispositivi di protezione individuale: giacca ignifuga EN 469, stivali, guanti, casco, SCBA. Parte integrante del Fireman's Outfit.'],
+  'SCBA':['Self-Contained Breathing Apparatus','Autorespiratore autonomo, parte del Fireman's Outfit. Autonomia ~30 minuti. Obbligatorio per entrare in spazi con fumo o gas.'],
+  'DPA':['Designated Person Ashore','Persona a terra nominata dalla compagnia come punto di contatto per la sicurezza, richiesta dall'ISM Code. Collegamento tra nave e management.'],
+  'SSO':['Ship Security Officer','Ufficiale di sicurezza della nave, responsabile del Ship Security Plan (SSP) secondo il Codice ISPS. Punto di contatto con il PFSO in porto.'],
+  'INMARSAT':['International Maritime Satellite','Sistema di comunicazione satellitare bidirezionale per area A3. Permette allerta soccorso diretto al MRCC anche in oceano aperto.'],
+  'EMSA':['European Maritime Safety Agency','Agenzia europea per la sicurezza marittima, con sede a Lisbona. Pubblica l'Annual Overview delle casualità maritime. Creata nel 2003 dopo il disastro Erika.'],
+  'LEL':['Lower Explosive Limit','Concentrazione minima di gas infiammabile nell'aria necessaria per un'esplosione. Soglia di allarme: 10% LEL per idrocarburi.'],
+  'IGF':['International Code of Safety for Ships Using Gases or other Low-flashpoint Fuels','Codice IMO per la sicurezza delle navi che usano LNG come combustibile. Obbligatorio dal 2017.'],
+  'ISM Code':['International Safety Management Code','Codice IMO che impone un Safety Management System documentato su ogni nave. Dal 2021 include obbligatoriamente la gestione del cyber risk.'],
+};
+
+function AcrTag({w}){
+  const [show,setShow]=React.useState(false);
+  const data=ACRONYMS[w];
+  if(!data)return <span>{w}</span>;
+  return(
+    <>
+      <span className="acr" onClick={e=>{e.stopPropagation();setShow(true)}}>{w}</span>
+      {show&&(
+        <div className="acr-overlay" onClick={()=>setShow(false)}>
+          <div className="acr-box" onClick={e=>e.stopPropagation()}>
+            <span className="acr-pill">{w}</span>
+            <p style={{fontFamily:'DM Serif Display,serif',fontSize:'1.1rem',color:'var(--txt)',marginBottom:'.5rem',lineHeight:1.3}}>{data[0]}</p>
+            <p style={{fontSize:'.82rem',color:'var(--txt2)',lineHeight:1.75}}>{data[1]}</p>
+            <button onClick={()=>setShow(false)} style={{marginTop:'.85rem',background:'rgba(255,255,255,.07)',border:'1px solid rgba(255,255,255,.15)',borderRadius:'8px',color:'var(--txt2)',padding:'.45rem 1rem',cursor:'pointer',fontFamily:'DM Sans,sans-serif',fontSize:'.82rem',width:'100%'}}>Chiudi</button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+function withAcr(text){
+  if(typeof text!=='string')return text;
+  const pattern=new RegExp('\\b('+Object.keys(ACRONYMS).join('|')+')\\b','g');
+  const parts=[];let last=0;let m;
+  while((m=pattern.exec(text))!==null){
+    if(m.index>last)parts.push(text.slice(last,m.index));
+    parts.push(<AcrTag key={m.index} w={m[0]}/>);
+    last=m.index+m[0].length;
+  }
+  if(last<text.length)parts.push(text.slice(last));
+  return parts.length>0?parts:text;
+}
+
 /* ══ QUIZ ENGINE ══ */
 function QuizEngine({questions,title,onBack}){
   const [cur,setCur]=useState(0);
@@ -347,7 +478,7 @@ function QuizEngine({questions,title,onBack}){
       {sel!==null&&(
         <div className="card fi" style={{marginTop:'.75rem',background:sel===q.a?'rgba(74,184,126,.09)':'rgba(232,83,60,.09)',borderColor:sel===q.a?'#4ab87e':'#e8533c'}}>
           <p style={{fontSize:'.82rem',color:'var(--txt2)',lineHeight:1.7}}>
-            <b style={{color:sel===q.a?'#4ab87e':'#f87171'}}>{sel===q.a?'✅ Corretto! ':'❌ Sbagliato. '}</b>{q.e}
+            <b style={{color:sel===q.a?'#4ab87e':'#f87171'}}>{sel===q.a?'✅ Corretto! ':'❌ Sbagliato. '}</b>{withAcr(q.e)}
           </p>
         </div>
       )}
@@ -472,7 +603,7 @@ function ModuleDetail({mid,setPage}){
                       {it.norme.map(n=><span key={n} className="nref">{n}</span>)}
                     </div>
                   </div>
-                  <p style={{color:'var(--txt2)',fontSize:'.79rem',lineHeight:1.7}}>{it.d}</p>
+                  <p style={{color:'var(--txt2)',fontSize:'.79rem',lineHeight:1.7}}>{withAcr(it.d)}</p>
                 </div>
               ))}
             </div>
@@ -619,7 +750,7 @@ function NormePage(){
             <span style={{color:'var(--txt3)'}}>{open===i?'▲':'▼'}</span>
           </div>
           {open===i&&(
-            <p style={{marginTop:'.65rem',paddingTop:'.65rem',borderTop:'1px solid var(--border)',color:'var(--txt2)',fontSize:'.8rem',lineHeight:1.72}}>{n.desc}</p>
+            <p style={{marginTop:'.65rem',paddingTop:'.65rem',borderTop:'1px solid var(--border)',color:'var(--txt2)',fontSize:'.8rem',lineHeight:1.72}}>{withAcr(n.desc)}</p>
           )}
         </div>
       ))}
@@ -629,19 +760,32 @@ function NormePage(){
 
 /* ══ ABOUT PAGE ══ */
 function AboutPage(){
+  const team=[
+    {nome:'Nocilla',ruolo:'Gruppo SafeSea'},
+    {nome:'Sicuso',ruolo:'Gruppo SafeSea'},
+    {nome:'Covato',ruolo:'Gruppo SafeSea'},
+    {nome:'Bitonti',ruolo:'Gruppo SafeSea'},
+    {nome:'Sicuso',ruolo:'Gruppo SafeSea'},
+  ];
   return(
     <div className="page fi">
       <p className="ph">👥 Chi Siamo</p>
       <p className="ps">Progetto SafeSea — Flipped Classroom A.S. 2025/26</p>
-      <div className="card" style={{marginBottom:'.6rem'}}>
-        <p style={{fontWeight:600,fontSize:'.82rem',color:'var(--gold)',marginBottom:'.65rem'}}>📌 Il Progetto</p>
-        <p style={{color:'var(--txt2)',fontSize:'.84rem',lineHeight:1.85,marginBottom:'.65rem'}}>
-          <b style={{color:'var(--txt)'}}>SafeSea</b> è un portale didattico per il Flipped Classroom. L'argomento centrale è l'<b style={{color:'var(--org)'}}>organizzazione dei servizi di emergenza in mare</b>: ogni strumento tecnico viene studiato in relazione alla catena organizzativa che lo attiva e lo gestisce.
-        </p>
-        <p style={{color:'var(--txt2)',fontSize:'.84rem',lineHeight:1.85}}>
-          Un solo video, una sola presentazione, cinque argomenti connessi. Le norme come fondamento — l'organizzazione al centro.
-        </p>
+
+      <div className="card" style={{marginBottom:'.75rem',background:'rgba(249,115,22,.06)',border:'1px solid rgba(249,115,22,.2)'}}>
+        <p style={{fontWeight:600,fontSize:'.82rem',color:'var(--org)',marginBottom:'.75rem'}}>👤 Il Gruppo</p>
+        <div style={{display:'flex',flexDirection:'column',gap:'.35rem'}}>
+          {team.map((p,i)=>(
+            <div key={i} style={{display:'flex',alignItems:'center',gap:'.75rem',padding:'.5rem .65rem',background:'rgba(0,0,0,.2)',borderRadius:'8px',border:'1px solid rgba(255,255,255,.06)'}}>
+              <div style={{width:'32px',height:'32px',borderRadius:'50%',background:`hsl(${i*67+20},55%,35%)`,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,fontSize:'.85rem',color:'#fff',flexShrink:0}}>
+                {p.nome[0]}
+              </div>
+              <p style={{fontWeight:600,fontSize:'.88rem',color:'var(--txt)'}}>{p.nome}</p>
+            </div>
+          ))}
+        </div>
       </div>
+
       {modules.map(m=>(
         <div key={m.id} className="card" style={{borderLeft:`3px solid ${m.color}`,marginBottom:'.45rem'}}>
           <div style={{display:'flex',gap:'.65rem',alignItems:'center'}}>
@@ -757,6 +901,13 @@ function PresentazionePage(){
     flexShrink:0,
   };
 
+  // animated gradient border
+  const borderAnim={
+    position:'absolute',bottom:0,left:0,right:0,height:'1px',
+    background:'linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%)',
+    backgroundSize:'200% auto',
+    animation:'shimmer 2.5s linear infinite',
+  };
   const topBarStyle={
     display:'flex',alignItems:'center',gap:'.5rem',
     padding: fs?'.5rem 1rem':'.45rem .75rem',
@@ -771,6 +922,7 @@ function PresentazionePage(){
 
       {/* BARRA SUPERIORE */}
       <div style={topBarStyle}>
+        <div style={borderAnim}/>
         <span style={{fontSize:fs?'.8rem':'.7rem',color:'var(--txt2)',flex:1,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{s.title}</span>
         <span style={{fontSize:'.68rem',color:'var(--txt3)',flexShrink:0}}>{cur+1} / {tot}</span>
         <button onClick={toggleFullscreen} style={{
@@ -846,32 +998,11 @@ const storiaEvents=[
     norma:'SOLAS 1914 — mai ratificata',
   },
   {
-    anno:1915,tipo:'disastro',titolo:'Affondamento del Lusitania',
-    icona:'🚢',colore:'#e8533c',
-    breve:'Un siluro tedesco uccide 1.198 persone in 18 minuti',
-    dettaglio:'Il 7 maggio 1915 il transatlantico britannico RMS Lusitania viene colpito da un siluro del sommergibile U-20 al largo della Irlanda. Affonda in soli 18 minuti — troppo in fretta per varare correttamente le scialuppe. Muoiono 1.198 persone inclusi 128 cittadini americani. La tragedia — avvenuta in tempo di guerra — spinge ulteriormente gli Stati Uniti verso l\'intervento nel conflitto. Dal punto di vista della sicurezza marittima, dimostra che neppure i grandi transatlantici sono inaffondabili.',
-    norma:'Accelera la revisione SOLAS post-bellica',
-  },
-  {
     anno:1929,tipo:'norma',titolo:'Seconda SOLAS — revisione post-bellica',
     icona:'📋',colore:'#e2a836',
     breve:'Aggiornamento: i paesi iniziano a ragionare sull\'organizzazione internazionale',
     dettaglio:'Le nazioni firmatarie si riuniscono per aggiornare la SOLAS del 1914. La seconda versione introduce nuovi standard tecnici e inizia a discutere la necessità di un organo internazionale permanente che garantisca l\'applicazione delle norme. La convenzione viene adottata ma gli stati subordinano la sua piena applicazione alla creazione di tale organismo. Passa un altro decennio prima che si agisca concretamente.',
     norma:'SOLAS 1929',
-  },
-  {
-    anno:1939,tipo:'disastro',titolo:'Seconda Guerra Mondiale',
-    icona:'⚔️',colore:'#e8533c',
-    breve:'Il conflitto blocca ogni progresso — e uccide migliaia di marinai',
-    dettaglio:'La Seconda Guerra Mondiale interrompe qualsiasi progresso sulla sicurezza marittima civile. I mari diventano zone di guerra: sommergibili, mine, bombardieri affondano migliaia di navi. Tra i disastri più gravi: il Wilhelm Gustloff (gennaio 1945, 9.000+ morti nel Mar Baltico — il naufragio più letale della storia), la Goya (aprile 1945, 6.000+ morti). La guerra dimostra però che la cooperazione internazionale è possibile e necessaria, ponendo le basi per l\'ONU e l\'IMO.',
-    norma:'Pause normativa — ma urgenza politica crescente',
-  },
-  {
-    anno:1948,tipo:'norma',titolo:'Nascita dell\'IMCO — poi diventata IMO',
-    icona:'🌐',colore:'#e2a836',
-    breve:'A Ginevra nasce l\'organismo internazionale che governa la sicurezza marittima',
-    dettaglio:'Nel 1948 a Ginevra, nell\'ambito della nascente ONU, viene firmata la Convenzione istitutiva dell\'IMCO — Inter-Governmental Maritime Consultive Organization. Entra in vigore nel 1958 con sede a Londra. Nel 1982 viene rinominata IMO (International Maritime Organization). Il suo primo compito: adottare una nuova SOLAS aggiornata. L\'IMO diventa il centro mondiale per la legislazione marittima: oggi conta 176 Stati membri e produce le convenzioni che regolano sicurezza, inquinamento, formazione e comunicazioni di emergenza.',
-    norma:'Convenzione istitutiva IMCO 1948 → IMO 1982',
   },
   {
     anno:1956,tipo:'disastro',titolo:'Collisione Andrea Doria — Stockholm',
@@ -888,25 +1019,11 @@ const storiaEvents=[
     norma:'SOLAS 1960 (IMCO)',
   },
   {
-    anno:1967,tipo:'disastro',titolo:'Torrey Canyon — prima catastrofe petrolifera',
-    icona:'🛢️',colore:'#e8533c',
-    breve:'120.000 tonnellate di greggio nelle coste di Inghilterra e Francia',
-    dettaglio:'Il 18 marzo 1967 la superpetroliera Torrey Canyon si incaglia sulle scogliere delle isole Scilly, Inghilterra. Riversa 120.000 tonnellate di greggio nel mare, contaminando centinaia di km di costa britannica e francese. È il primo grande disastro ambientale marino. La risposta è caotica: non esistono piani SAR per emergenze di inquinamento, nessuna convenzione internazionale sull\'inquinamento da navi. La reazione internazionale porta direttamente alla nascita di MARPOL.',
-    norma:'→ Catalizzatore diretto di MARPOL 73/78',
-  },
-  {
     anno:1972,tipo:'norma',titolo:'COLREG — Regole della strada in mare',
     icona:'🚦',colore:'#4ab87e',
     breve:'Primo regolamento internazionale per prevenire le collisioni',
     dettaglio:'Nel 1972 l\'IMO adotta il COLREG — Convention on the International Regulations for Preventing Collisions at Sea. Stabilisce le "regole della strada" in mare: precedenze, fanali obbligatori, segnali sonori, separazioni del traffico. Nel 1972 viene anche istituito il primo schema obbligatorio di separazione del traffico nello Stretto di Dover. I COLREG integrano il radar ARPA e successivamente l\'AIS come strumenti per la valutazione del rischio di collisione (CPA/TCPA). Ancora oggi in vigore.',
     norma:'COLREG 1972 (emend. 2007)',
-  },
-  {
-    anno:1973,tipo:'norma',titolo:'MARPOL 73/78 — contro l\'inquinamento',
-    icona:'🌊',colore:'#4ab87e',
-    breve:'La risposta internazionale al Torrey Canyon e all\'inquinamento da navi',
-    dettaglio:'Nel 1973 viene adottata MARPOL (Marine Pollution) e nel 1978 un Protocollo la potenzia. È la risposta diretta al Torrey Canyon (1967) e all\'Amoco Cadiz (1978). Vieta gli scarichi di idrocarburi in mare, introduce le aree speciali, e impone il doppio scafo sui nuovi tanker. MARPOL non riguarda direttamente la sicurezza della vita umana ma è inscindibile dall\'organizzazione delle emergenze: un incidente su una petroliera è sempre anche un\'emergenza ambientale e richiede risposta coordinata.',
-    norma:'MARPOL 73/78 + protocolli successivi',
   },
   {
     anno:1974,tipo:'norma',titolo:'SOLAS 1974 — la convenzione vigente',
@@ -944,13 +1061,6 @@ const storiaEvents=[
     norma:'Emendamento SOLAS Cap.IV — GMDSS, in vigore 1992/1999',
   },
   {
-    anno:1989,tipo:'disastro',titolo:'Exxon Valdez — Alaska',
-    icona:'🛢️',colore:'#e8533c',
-    breve:'37.000 tonnellate di greggio — e nasce il doppio scafo obbligatorio',
-    dettaglio:'Il 24 marzo 1989 la superpetroliera Exxon Valdez incaglia sulla Bligh Reef in Alaska riversando 37.000 tonnellate di greggio nel Principe William Sound. Uno dei più gravi disastri ambientali della storia. Le conseguenze normative sono immediate e radicali: gli USA approvano l\'Oil Pollution Act 1990 (OPA 90) che impone il doppio scafo su tutte le petroliere che operano in acque americane. L\'IMO adotta requisiti analoghi in MARPOL. Accelera anche la revisione del sistema di prevenzione incidenti e la creazione del Port State Control moderno.',
-    norma:'→ OPA 90 (USA), doppio scafo MARPOL obbligatorio',
-  },
-  {
     anno:1993,tipo:'norma',titolo:'ISM Code — International Safety Management',
     icona:'📋',colore:'#e2a836',
     breve:'Nasce l\'obbligo del Safety Management System per ogni nave',
@@ -972,25 +1082,11 @@ const storiaEvents=[
     norma:'IAMSAR Manual Vol.I-II-III, ed. 2022 — IMO/ICAO',
   },
   {
-    anno:1999,tipo:'disastro',titolo:'Erika — Golfo di Biscaglia',
-    icona:'🛢️',colore:'#e8533c',
-    breve:'Una petroliera di 24 anni si spezza — e l\'UE rivoluziona la safety',
-    dettaglio:'Il 12 dicembre 1999 la petroliera Erika, 24 anni di servizio, si spezza in una tempesta nel Golfo di Biscaglia al largo della Bretagna. Riversa oltre 20.000 tonnellate di olio pesante contaminando 400 km di costa francese. L\'indagine rivela che la nave era stata ispezionata 16 volte in 8 anni senza che i difetti strutturali fossero rilevati correttamente. L\'evento scatena i Pacchetti Erika I, II e III nell\'UE: rafforzamento delle ispezioni, creazione di EMSA (European Maritime Safety Agency), accelerazione del phase-out delle petroliere monoscafo.',
-    norma:'→ Pacchetti Erika EU, nascita EMSA (2003)',
-  },
-  {
     anno:2001,tipo:'norma',titolo:'ISPS Code — sicurezza post-11 settembre',
     icona:'🔒',colore:'#a47fe8',
     breve:'Gli attacchi alle Torri Gemelle cambiano anche la sicurezza marittima',
     dettaglio:'Dopo gli attentati dell\'11 settembre 2001, l\'IMO adotta nel dicembre 2002 il Codice ISPS — International Ship and Port Facility Security Code (emendamento SOLAS Cap. XI-2). In vigore dal 1° luglio 2004. Introduce tre livelli di sicurezza, impone un Ship Security Plan (SSP) su ogni nave e un Port Facility Security Plan (PFSP). Il Ship Security Officer (SSO) diventa figura obbligatoria. L\'ISPS è distinto dall\'ISM: uno riguarda la sicurezza dalle minacce esterne (terrorismo, pirateria), l\'altro l\'organizzazione interna della safety.',
     norma:'ISPS Code 2002 — in vigore 1/7/2004, SOLAS Cap. XI-2',
-  },
-  {
-    anno:2002,tipo:'disastro',titolo:'Prestige — Galizia',
-    icona:'🛢️',colore:'#e8533c',
-    breve:'La seconda grande catastrofe petrolifera europea in 3 anni',
-    dettaglio:'Il 13 novembre 2002 la petroliera Prestige si spezza al largo della Galizia spagnola, a poco più di 150 km dal punto dove era affondata l\'Erika nel 1999. Riversa 77.000 tonnellate di olio pesante, contaminando le coste di Spagna, Portogallo e Francia. La gestione dell\'emergenza è controversa: Spagna e Portogallo rifiutano di far entrare la nave nei porti, costringendola a rimanere in mare fino all\'affondamento. Il caso porta a un dibattito cruciale sul "place of safety" nelle operazioni SAR — chi ha l\'obbligo di accogliere una nave in difficoltà?',
-    norma:'→ Dibattito "place of safety" SAR Convention',
   },
   {
     anno:2010,tipo:'norma',titolo:'STCW Manila 2010 — rivoluzione della formazione',
@@ -1111,7 +1207,7 @@ function StoriaPage(){
                 {/* Dettaglio espanso */}
                 {isOpen&&(
                   <div style={{borderTop:`1px solid ${col}33`,paddingTop:'.55rem',animation:'fu .2s ease forwards'}}>
-                    <p style={{fontSize:'.8rem',color:'var(--txt2)',lineHeight:1.78,marginBottom:'.55rem'}}>{ev.dettaglio}</p>
+                    <p style={{fontSize:'.8rem',color:'var(--txt2)',lineHeight:1.78,marginBottom:'.55rem'}}>{withAcr(ev.dettaglio)}</p>
                     {ev.norma&&(
                       <div style={{padding:'.4rem .65rem',background:`${col}12`,border:`1px solid ${col}33`,borderRadius:'7px'}}>
                         <p style={{fontSize:'.72rem',color:col,fontWeight:600,lineHeight:1.55}}>{ev.norma}</p>
@@ -1148,7 +1244,6 @@ function MoreMenu({setPage,close}){
         {id:'quiz',i:'🧪',t:'Quiz'},
         {id:'timeline_sar',i:'⏱️',t:'Timeline SAR'},
         {id:'timeline_storia',i:'📜',t:'Storia della Sicurezza Marittima'},
-        {id:'docs',i:'📄',t:'Documenti'},
         {id:'norme',i:'📜',t:'Base Normativa'},
         {id:'about',i:'👥',t:'Chi Siamo'},
       ].map(item=>(
@@ -1186,7 +1281,7 @@ function App(){
     if(page==='timeline_storia')return <StoriaPage/>;
     if(page==='slides')return <PresentazionePage/>;
     
-    if(page==='docs')return <DocsPage/>;
+    if(page==='docs')return null; // nascosta
     if(page==='norme')return <NormePage/>;
     if(page==='about')return <AboutPage/>;
     return null;
