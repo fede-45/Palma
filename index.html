@@ -204,7 +204,7 @@ const modules=[
         {n:'Anello di salvataggio',d:'Peso ≥ 2,5 kg, galleggiabilità ≥ 14,5 kg. Ogni 4 unità: 1 con luce automatica + 1 con sagola ≥ 30 m. Posizionati su entrambe le murate. Chi li usa: personale designato nella Muster List.',norme:['SOLAS III R.7.1','LSA Code 2.1']},
       ]},
       {nome:'Imbarcazioni di sopravvivenza',items:[
-        {n:'Scialuppa chiusa (Lifeboat)',d:'Capacità ≥ 125% persone a bordo (cargo). Motore diesel avviante in 2 min anche se allagata. Autoraddrizzante. Dotazione: 3L acqua/pers, viveri, kit medico, razzi, bussola. Il Rescue Team è responsabile del varo.',norme:['SOLAS III R.21','LSA Code 4.4']},
+        {n:'Scialuppa chiusa (Lifeboat)',d:'Capacità per 100% delle persone su ogni lato (cargo) — 125% totale per navi passeggeri. Motore diesel avviante in 2 min anche se allagata. Autoraddrizzante. Dotazione: 3L acqua/pers, viveri, kit medico, razzi, bussola. Il Rescue Team è responsabile del varo.',norme:['SOLAS III R.21','LSA Code 4.4']},
         {n:'Zattera gonfiabile SOLAS',d:'Gonfiaggio CO₂/N₂ automatico al contatto con l\'acqua. Tipo A (mare aperto) e B (acque protette). 6-25 persone. Doppio tubo portante. Revisione ogni 12 mesi. Attivazione: manuale o tramite HRU.',norme:['SOLAS III R.26','LSA Code 4.2']},
         {n:'Fast Rescue Boat',d:'5-8 m, velocità ≥ 6 kn per 4 ore. Minimo 5 persone a bordo. Obbligatoria su navi passeggeri. Recupero rapido con gru dedicata. Equipaggio designato nella Muster List.',norme:['SOLAS III R.26.2','LSA Code 5.1']},
       ]},
@@ -338,51 +338,49 @@ const normaRefs=[
 
 /* ══ ACRONYM SYSTEM ══ */
 const ACRONYMS={
-  'SOLAS':['Safety Of Life At Sea','Convenzione IMO che stabilisce gli standard minimi di sicurezza per la costruzione e il funzionamento delle navi mercantili. Prima versione 1914, attualmente in vigore quella del 1974.'],
-  'IMO':['International Maritime Organization','Agenzia specializzata dell'ONU per la regolamentazione del trasporto marittimo internazionale. Sede a Londra, 176 Stati membri.'],
-  'SAR':['Search and Rescue','Sistema internazionale di ricerca e soccorso in mare, organizzato in Search and Rescue Regions (SRR) con un MRCC responsabile per ciascuna.'],
+  'SOLAS':['Safety Of Life At Sea','Convenzione IMO per la sicurezza delle navi. Prima versione 1914 (dopo il Titanic), versione attuale del 1974 con emendamenti continui.'],
+  'IMO':['International Maritime Organization','Agenzia ONU per la navigazione marittima. Sede a Londra, 176 Stati membri. Emette le convenzioni su sicurezza, formazione e comunicazioni.'],
+  'SAR':['Search and Rescue','Sistema di ricerca e soccorso in mare. Il mondo e diviso in SRR, ciascuna con un MRCC responsabile.'],
   'MRCC':['Maritime Rescue Coordination Centre','Centro di coordinamento del soccorso marittimo. In Italia: MRCC Roma (Guardia Costiera), attivo 24h/365g, numero emergenza 1530.'],
-  'MRSC':['Maritime Rescue Sub-Centre','Centro secondario di soccorso marittimo, dipende dall'MRCC. In Italia: Genova, Napoli, Palermo, Catania.'],
-  'OSC':['On-Scene Coordinator','Nave o aeromobile designato dall'MRCC per coordinare le unità SAR direttamente sul luogo dell'emergenza.'],
-  'GMDSS':['Global Maritime Distress and Safety System','Sistema globale di comunicazioni di emergenza e sicurezza in mare, introdotto nella SOLAS nel 1988. Sostituisce il codice Morse.'],
-  'EPIRB':['Emergency Position-Indicating Radio Beacon','Radiofaro di emergenza che trasmette su 406 MHz via satellite Cospas-Sarsat. Localizzazione <100 m, autonomia ≥48 ore.'],
-  'SART':['Search and Rescue Transponder','Radar transponder che risponde alle scansioni radar con 12 punti sul display del soccorritore. Portata ~5 nm da nave.'],
-  'AIS':['Automatic Identification System','Sistema di identificazione automatica che trasmette posizione, rotta e velocità della nave ogni 2-10 secondi. Obbligatorio su navi ≥300 GT.'],
-  'DSC':['Digital Selective Calling','Sistema di chiamata digitale selettiva usato su VHF Ch.70 per trasmettere automaticamente allerte di soccorso con MMSI e posizione GPS.'],
-  'VHF':['Very High Frequency','Banda radio (156-174 MHz) usata per le comunicazioni marittime a corta distanza (~20-50 nm). Ch.16 per emergenze, Ch.70 per DSC.'],
-  'MHF':['Medium/High Frequency','Bande radio per comunicazioni marittime a media-lunga distanza. MF: ~150-400 nm (area A2), HF: portata mondiale via ionosfera (area A3/A4).'],
-  'LSA':['Life-Saving Appliances','Mezzi di salvataggio a bordo: giubbotti, mute, anelli, scialuppe, zattere. Regolati dal LSA Code (MSC.48(66)) e SOLAS Cap.III.'],
-  'ISM':['International Safety Management Code','Codice IMO che impone un Safety Management System (SMS) su ogni nave. Obbligatorio dal 1998, aggiornato nel 2021 con il cyber risk.'],
-  'SMS':['Safety Management System','Manuale operativo di sicurezza della nave, richiesto dall'ISM Code. Descrive procedure, responsabilità e protocolli per ogni tipo di emergenza.'],
-  'DOC':['Document of Compliance','Certificato che attesta la conformità della compagnia di navigazione all'ISM Code. Rilasciato dal flag State, validità 5 anni.'],
-  'SMC':['Safety Management Certificate','Certificato che attesta la conformità della singola nave all'ISM Code. Rilasciato dal flag State, validità 5 anni.'],
-  'STCW':['Standards of Training, Certification and Watchkeeping','Convenzione IMO del 1978 che stabilisce gli standard minimi di formazione per i marittimi. Emendamenti Manila 2010 attualmente in vigore.'],
-  'ISPS':['International Ship and Port Facility Security Code','Codice IMO del 2002 (post-11 settembre) per la sicurezza navi e porti da minacce esterne. Introduce tre livelli di sicurezza.'],
-  'ERT':['Emergency Response Team','Squadra a bordo designata per rispondere a emergenze specifiche: Fire Team, Rescue Team, Medical Team, Damage Control Team.'],
-  'HRU':['Hydrostatic Release Unit','Dispositivo idrostatico che sgancia automaticamente la zattera di salvataggio a 1,5-4 m di profondità. Scadenza obbligatoria ogni 2 anni.'],
-  'VDR':['Voyage Data Recorder','Scatola nera della nave. Registra le ultime 12 ore di posizione, rotta, audio plancia, radar. Obbligatoria su navi ≥3000 GT.'],
-  'ECDIS':['Electronic Chart Display and Information System','Sistema di carte nautiche elettroniche integrato con GPS, AIS e radar. Sostituisce le carte cartacee come obbligatorio per molte categorie di navi.'],
-  'ARPA':['Automatic Radar Plotting Aid','Radar con calcolo automatico di CPA (distanza minima) e TCPA (tempo al CPA) per ogni bersaglio. Essenziale per la prevenzione delle collisioni.'],
-  'CPA':['Closest Point of Approach','Distanza minima prevista tra due navi se mantengono rotta e velocità. Calcolata automaticamente dall'ARPA in combinazione con il TCPA.'],
-  'TCPA':['Time to Closest Point of Approach','Tempo mancante al punto di massimo avvicinamento tra due navi. Usato insieme al CPA per valutare il rischio di collisione.'],
-  'COLREG':['Convention on International Regulations for Preventing Collisions at Sea','Regolamento IMO del 1972 che stabilisce le "regole della strada" in mare: precedenze, fanali, segnali sonori, separazioni del traffico.'],
-  'MARPOL':['Marine Pollution Convention','Convenzione IMO che regola la prevenzione dell'inquinamento da navi. Vieta gli scarichi di idrocarburi e introduce il doppio scafo per i tanker.'],
-  'NAVTEX':['Navigational Telex','Sistema automatico di ricezione di avvisi nautici, meteomarine e comunicati SAR su 518 kHz. Portata ~400 nm, nessuna guardia radio.'],
-  'IAMSAR':['International Aeronautical and Maritime Search and Rescue Manual','Manuale IMO/ICAO in 3 volumi: organizzazione SAR, coordinamento missioni, mezzi mobili. Edizione 2022 attualmente in vigore.'],
-  'MMSI':['Maritime Mobile Service Identity','Numero identificativo univoco a 9 cifre assegnato a ogni nave. Trasmesso automaticamente da AIS, DSC ed EPIRB nelle allerte di emergenza.'],
-  'BNWAS':['Bridge Navigational Watch Alarm System','Sistema anti-addormentamento: allerta progressiva se l'ufficiale di guardia non interagisce entro 3-12 minuti. Obbligatorio su navi ≥150 GT.'],
-  'SRR':['Search and Rescue Region','Area geografica di responsabilità SAR assegnata a uno Stato. Copre anche acque internazionali. L'Italia gestisce il Mediterraneo centrale.'],
-  'MSI':['Maritime Safety Information','Avvisi nautici, meteomarine e comunicati SAR distribuiti automaticamente via NAVTEX e SafetyNET a tutte le navi in zona.'],
-  'TPA':['Thermal Protective Aid','Borsa isolante che riduce la perdita di calore per convezione in acqua fredda. Copertura ≥80% del corpo, inclusa nelle zattere SOLAS.'],
-  'PPE':['Personal Protective Equipment','Dispositivi di protezione individuale: giacca ignifuga EN 469, stivali, guanti, casco, SCBA. Parte integrante del Fireman's Outfit.'],
-  'SCBA':['Self-Contained Breathing Apparatus','Autorespiratore autonomo, parte del Fireman's Outfit. Autonomia ~30 minuti. Obbligatorio per entrare in spazi con fumo o gas.'],
-  'DPA':['Designated Person Ashore','Persona a terra nominata dalla compagnia come punto di contatto per la sicurezza, richiesta dall'ISM Code. Collegamento tra nave e management.'],
-  'SSO':['Ship Security Officer','Ufficiale di sicurezza della nave, responsabile del Ship Security Plan (SSP) secondo il Codice ISPS. Punto di contatto con il PFSO in porto.'],
-  'INMARSAT':['International Maritime Satellite','Sistema di comunicazione satellitare bidirezionale per area A3. Permette allerta soccorso diretto al MRCC anche in oceano aperto.'],
-  'EMSA':['European Maritime Safety Agency','Agenzia europea per la sicurezza marittima, con sede a Lisbona. Pubblica l'Annual Overview delle casualità maritime. Creata nel 2003 dopo il disastro Erika.'],
-  'LEL':['Lower Explosive Limit','Concentrazione minima di gas infiammabile nell'aria necessaria per un'esplosione. Soglia di allarme: 10% LEL per idrocarburi.'],
-  'IGF':['International Code of Safety for Ships Using Gases or other Low-flashpoint Fuels','Codice IMO per la sicurezza delle navi che usano LNG come combustibile. Obbligatorio dal 2017.'],
-  'ISM Code':['International Safety Management Code','Codice IMO che impone un Safety Management System documentato su ogni nave. Dal 2021 include obbligatoriamente la gestione del cyber risk.'],
+  'MRSC':['Maritime Rescue Sub-Centre','Centro secondario di soccorso, dipendente dal MRCC. In Italia: Genova, Napoli, Palermo, Catania.'],
+  'OSC':['On-Scene Coordinator','Nave o aeromobile designato dal MRCC per coordinare le unita SAR sul luogo dell’emergenza.'],
+  'SRR':['Search and Rescue Region','Area geografica di responsabilita SAR assegnata a uno Stato. Copre anche acque internazionali.'],
+  'GMDSS':['Global Maritime Distress and Safety System','Sistema globale di comunicazioni di emergenza marittima introdotto nel 1988. Sostituisce il codice Morse.'],
+  'EPIRB':['Emergency Position-Indicating Radio Beacon','Radiofaro di emergenza: trasmette su 406 MHz via satellite Cospas-Sarsat con posizione GPS. Autonomia 48 ore.'],
+  'SART':['Search and Rescue Transponder','Transponder radar che risponde con 12 punti sul display del soccorritore. Portata circa 5 nm da nave.'],
+  'AIS':['Automatic Identification System','Trasmette ogni 2-10 secondi: nome, posizione, rotta, velocita. Obbligatorio su navi maggiori di 300 GT.'],
+  'DSC':['Digital Selective Calling','Allerta digitale su VHF Ch.70. Trasmette MMSI e posizione GPS automaticamente al MRCC.'],
+  'VHF':['Very High Frequency','Banda radio per comunicazioni a corto raggio (20-50 nm). Ch.16: emergenze vocali. Ch.70: solo DSC.'],
+  'LSA':['Life-Saving Appliances','Mezzi di salvataggio a bordo: giubbotti, mute, anelli, scialuppe, zattere. Regolati da LSA Code e SOLAS Cap.III.'],
+  'ISM':['International Safety Management Code','Codice IMO che impone un Safety Management System su ogni nave. Obbligatorio dal 1998, aggiornato nel 2021.'],
+  'SMS':['Safety Management System','Manuale operativo di sicurezza della nave. Descrive procedure e protocolli per ogni emergenza. Dal 2021 include il cyber risk.'],
+  'ERT':['Emergency Response Team','Squadra di bordo per le emergenze: Fire Team, Rescue Team, Medical Team, Damage Control Team.'],
+  'HRU':['Hydrostatic Release Unit','Dispositivo che sgancia automaticamente la zattera a 1,5-4 m di profondita. Scadenza ogni 2 anni.'],
+  'VDR':['Voyage Data Recorder','Scatola nera della nave. Registra le ultime 12 ore: posizione, audio plancia, immagini radar.'],
+  'ECDIS':['Electronic Chart Display and Information System','Carte nautiche elettroniche integrate con GPS, AIS e radar. Obbligatorio su molte categorie di navi.'],
+  'ARPA':['Automatic Radar Plotting Aid','Radar con calcolo automatico di CPA e TCPA per ogni bersaglio. Fondamentale per prevenire le collisioni.'],
+  'CPA':['Closest Point of Approach','Distanza minima prevista tra due navi se mantengono rotta e velocita. Calcolata automaticamente.'],
+  'TCPA':['Time to Closest Point of Approach','Tempo mancante al punto di massimo avvicinamento. Usato con CPA per valutare il rischio di collisione.'],
+  'COLREG':['Convention on International Regulations for Preventing Collisions at Sea','Regolamento IMO 1972 sulle regole della strada in mare: precedenze, fanali, separazioni del traffico.'],
+  'NAVTEX':['Navigational Telex','Ricezione automatica di avvisi nautici e comunicati SAR su 518 kHz. Portata circa 400 nm.'],
+  'IAMSAR':['International Aeronautical and Maritime Search and Rescue Manual','Manuale IMO/ICAO in 3 volumi: organizzazione SAR, coordinamento missioni, mezzi mobili. Ed. 2022.'],
+  'MMSI':['Maritime Mobile Service Identity','Numero identificativo univoco a 9 cifre di ogni nave. Trasmesso da AIS, DSC ed EPIRB nelle allerte.'],
+  'BNWAS':['Bridge Navigational Watch Alarm System','Anti-addormentamento: allerta progressiva se l’ufficiale di guardia non risponde entro 3-12 minuti.'],
+  'STCW':['Standards of Training Certification and Watchkeeping','Convenzione IMO 1978 sugli standard minimi di formazione dei marittimi. Emendamenti Manila 2010.'],
+  'ISPS':['International Ship and Port Facility Security Code','Codice IMO 2002 per la sicurezza da minacce esterne. Introduce tre livelli di sicurezza.'],
+  'TPA':['Thermal Protective Aid','Borsa isolante contro la dispersione termica in acqua fredda. Copertura minima 80% del corpo.'],
+  'SCBA':['Self-Contained Breathing Apparatus','Autorespiratore autonomo del Fireman Outfit. Autonomia circa 30 minuti. Obbligatorio in spazi con fumo.'],
+  'DOC':['Document of Compliance','Certificato di conformita della compagnia all ISM Code. Rilasciato dal flag State, validita 5 anni.'],
+  'SMC':['Safety Management Certificate','Certificato di conformita della singola nave all ISM Code. Validita 5 anni.'],
+  'DPA':['Designated Person Ashore','Responsabile a terra richiesto dall ISM Code. Collegamento tra nave e management per la sicurezza.'],
+  'EMSA':['European Maritime Safety Agency','Agenzia europea per la sicurezza marittima con sede a Lisbona. Creata nel 2003.'],
+  'INMARSAT':['International Maritime Satellite','Sistema satellitare per comunicazioni in oceano aperto. Permette allerta diretta al MRCC.'],
+  'MSI':['Maritime Safety Information','Avvisi nautici, meteomarine e comunicati SAR distribuiti via NAVTEX a tutte le navi in zona.'],
+  'FSS':['Fire Safety Systems Code','Codice IMO con le specifiche tecniche per tutti i sistemi antincendio a bordo.'],
+  'ISM Code':['International Safety Management Code','Codice IMO che impone il Safety Management System su ogni nave. Dal 2021 include la gestione del cyber risk.'],
+  'LEL':['Lower Explosive Limit','Concentrazione minima di gas infiammabile per un esplosione. Soglia di allarme: 10% LEL.'],
+  'SSO':['Ship Security Officer','Ufficiale responsabile del Ship Security Plan secondo il Codice ISPS.'],
+  'PPE':['Personal Protective Equipment','Dispositivi di protezione individuale: giacca ignifuga, stivali, guanti, casco, SCBA.'],
 };
 
 function AcrTag({w}){
@@ -408,12 +406,14 @@ function AcrTag({w}){
 
 function withAcr(text){
   if(typeof text!=='string')return text;
-  const pattern=new RegExp('\\b('+Object.keys(ACRONYMS).join('|')+')\\b','g');
-  const parts=[];let last=0;let m;
+  const keys=Object.keys(ACRONYMS);
+  const pattern=new RegExp('\\b('+keys.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','g');
+  const parts=[];let last=0,idx=0;let m;
   while((m=pattern.exec(text))!==null){
     if(m.index>last)parts.push(text.slice(last,m.index));
-    parts.push(<AcrTag key={m.index} w={m[0]}/>);
-    last=m.index+m[0].length;
+    const w=m[0];
+    parts.push(React.createElement(AcrTag,{key:idx++,w:w}));
+    last=m.index+w.length;
   }
   if(last<text.length)parts.push(text.slice(last));
   return parts.length>0?parts:text;
@@ -633,24 +633,16 @@ function ModuleDetail({mid,setPage}){
 /* ══ VIDEO PAGE — unico video ══ */
 function VideoPage(){
   return(
-    <div className="fi">
-      <div style={{background:'#000',borderBottom:'1px solid rgba(255,255,255,.08)'}}>
-        <iframe
-          src="https://drive.google.com/file/d/1SQXY0bwCr8nw5Tci6ASd49K7HMrmH7Lf/preview"
-          style={{width:'100%',aspectRatio:'16/9',border:'none',display:'block'}}
-          allow="autoplay"
-          allowFullScreen
-        />
-      </div>
-      <div className="page" style={{paddingTop:'.75rem'}}>
-        <p style={{fontFamily:'DM Serif Display,serif',fontSize:'1.1rem',marginBottom:'.2rem'}}>Organizzazione delle Emergenze in Mare</p>
-        <p style={{fontSize:'.78rem',color:'var(--txt2)',lineHeight:1.65}}>Guardalo <b style={{color:'var(--txt)'}}>prima di venire in classe</b> — è la parte "capovolta" del Flipped Classroom.</p>
-      </div>
+    <div style={{position:'fixed',top:'52px',left:0,right:0,bottom:'60px',maxWidth:'600px',margin:'0 auto',background:'#000'}}>
+      <iframe
+        src="https://drive.google.com/file/d/1SQXY0bwCr8nw5Tci6ASd49K7HMrmH7Lf/preview"
+        style={{width:'100%',height:'100%',border:'none',display:'block'}}
+        allow="autoplay"
+        allowFullScreen
+      />
     </div>
   );
 }
-
-/* ══ TIMELINE SAR ══ */
 function TimelinePage(){
   const steps=[
     {t:'T + 0',label:'Segnale di soccorso',d:'EPIRB attivata (manualmente dal Master/ERT o automaticamente per affondamento). Segnale 406 MHz + GPS emesso verso i satelliti Cospas-Sarsat.',col:'var(--org)',i:'📡'},
@@ -786,19 +778,9 @@ function AboutPage(){
         </div>
       </div>
 
-      {modules.map(m=>(
-        <div key={m.id} className="card" style={{borderLeft:`3px solid ${m.color}`,marginBottom:'.45rem'}}>
-          <div style={{display:'flex',gap:'.65rem',alignItems:'center'}}>
-            <span style={{fontSize:'1.5rem',flexShrink:0}}>{m.icon}</span>
-            <div>
-              <p style={{fontWeight:600,fontSize:'.86rem',color:m.color}}>{m.code} — {m.title}</p>
-              <p style={{color:'var(--txt3)',fontSize:'.72rem',marginTop:'.1rem'}}>
-                {m.quiz.length} domande · {m.categorie.length} categorie · {m.categorie.reduce((s,c)=>s+c.items.length,0)} concetti
-              </p>
-            </div>
-          </div>
-        </div>
-      ))}
+      <div className="card" style={{background:'rgba(255,255,255,.03)',border:'1px solid rgba(255,255,255,.07)'}}>
+        <p style={{fontSize:'.82rem',color:'var(--txt2)',textAlign:'center',letterSpacing:'.05em'}}>Classe 5A — Istituto Tecnico Nautico · A.S. 2025/26</p>
+      </div>
     </div>
   );
 }
@@ -1005,25 +987,11 @@ const storiaEvents=[
     norma:'SOLAS 1929',
   },
   {
-    anno:1956,tipo:'disastro',titolo:'Collisione Andrea Doria — Stockholm',
-    icona:'🚢',colore:'#e8533c',
-    breve:'46 morti al largo di Nantucket — emergono i limiti del radar',
-    dettaglio:'Il 25 luglio 1956 il transatlantico italiano Andrea Doria si scontra con il piroscafo svedese Stockholm al largo di Nantucket, USA. Affonda in 11 ore — abbastanza lentamente da permettere di salvare 1.660 persone, ma 46 muoiono. L\'incidente rivela limiti critici: entrambe le navi avevano il radar ma lo usavano male; le comunicazioni di emergenza erano disorganizzate; la dotazione di scialuppe era insufficiente per entrambe le navi. È il primo grande incidente dell\'era radar e spinge verso nuove norme sull\'uso degli strumenti di navigazione.',
-    norma:'→ Revisione norme radar SOLAS',
-  },
-  {
     anno:1960,tipo:'norma',titolo:'SOLAS 1960 — la prima dell\'era IMO',
     icona:'📜',colore:'#e2a836',
     breve:'L\'IMO adotta la sua prima convenzione SOLAS',
     dettaglio:'Nel 1960 l\'IMO (allora IMCO) adotta la quarta versione della SOLAS — la prima gestita da un organismo internazionale permanente. Introduce: standard obbligatori per radar e strumenti di navigazione, nuove norme sui mezzi di salvataggio, requisiti radio aggiornati, disposizioni per la prevenzione degli incendi. La SOLAS 1960 diventa il modello su cui si basano tutte le versioni successive. Il meccanismo degli emendamenti viene però ritenuto troppo lento, portando alla revisione del 1974.',
     norma:'SOLAS 1960 (IMCO)',
-  },
-  {
-    anno:1972,tipo:'norma',titolo:'COLREG — Regole della strada in mare',
-    icona:'🚦',colore:'#4ab87e',
-    breve:'Primo regolamento internazionale per prevenire le collisioni',
-    dettaglio:'Nel 1972 l\'IMO adotta il COLREG — Convention on the International Regulations for Preventing Collisions at Sea. Stabilisce le "regole della strada" in mare: precedenze, fanali obbligatori, segnali sonori, separazioni del traffico. Nel 1972 viene anche istituito il primo schema obbligatorio di separazione del traffico nello Stretto di Dover. I COLREG integrano il radar ARPA e successivamente l\'AIS come strumenti per la valutazione del rischio di collisione (CPA/TCPA). Ancora oggi in vigore.',
-    norma:'COLREG 1972 (emend. 2007)',
   },
   {
     anno:1974,tipo:'norma',titolo:'SOLAS 1974 — la convenzione vigente',
@@ -1248,7 +1216,7 @@ function MoreMenu({setPage,close}){
         {id:'about',i:'👥',t:'Chi Siamo'},
       ].map(item=>(
         <button key={item.id} onClick={()=>{setPage(item.id);close();}}
-          style={{display:'flex',alignItems:'center',gap:'1rem',padding:'1rem',background:'rgba(255,255,255,.04)',border:'1px solid var(--border)',borderRadius:'var(--r)',cursor:'pointer',fontFamily:'DM Sans,sans-serif',color:'var(--txt)',fontSize:'.95rem',marginBottom:'.5rem',textAlign:'left',width:'100%'}}>
+          style={{display:'flex',alignItems:'center',gap:'1rem',padding:'1rem',background:'rgba(255,255,255,.04)',border:'1px solid var(--border)',borderRadius:'12px',cursor:'pointer',fontFamily:'DM Sans,sans-serif',color:'var(--txt)',fontSize:'.95rem',marginBottom:'.5rem',textAlign:'left',width:'100%'}}>
           <span style={{fontSize:'1.4rem'}}>{item.i}</span>{item.t}
           <span style={{marginLeft:'auto',color:'var(--txt3)'}}>›</span>
         </button>
