@@ -325,14 +325,15 @@ const modules=[
 const allQuiz=modules.flatMap(m=>m.quiz.map(q=>({...q,mod:m.code,color:m.color})));
 
 const normaRefs=[
-  {code:'SAR 1979',year:'emend. 2004',mods:['ORG','GMDSS'],desc:'Struttura le SRR, i centri MRCC/MRSC e il concetto di "place of safety". Definisce gli obblighi degli Stati costieri nell\'organizzazione SAR.'},
-  {code:'IAMSAR Manual',year:'ed. 2022',mods:['ORG','GMDSS'],desc:'Manuale IMO/ICAO in 3 volumi: Vol.I (organizzazione SAR), Vol.II (coordinamento missione), Vol.III (mezzi mobili). Base operativa di tutti i MRCC.'},
-  {code:'ISM Code',year:'emend. 2021',mods:['ORG','FIRE','NAV'],desc:'Impone il Safety Management System (SMS) su ogni nave. Dal 2021 integra il cyber risk. Verificato da flag State con DOC/SMC.'},
-  {code:'SOLAS 1974',year:'vers. 2024',mods:['LSA','FIRE','GMDSS','NAV','ORG'],desc:'La convenzione madre. Cap. II-2 (antincendio), III (mezzi salvataggio e drills), IV (GMDSS), V (navigazione sicura).'},
-  {code:'LSA Code',year:'MSC.48(66)',mods:['LSA'],desc:'Requisiti tecnici dettagliati per ogni mezzo di salvataggio individuale e collettivo.'},
-  {code:'FSS Code',year:'MSC.98(73)',mods:['FIRE'],desc:'Fire Safety Systems Code — specifiche tecniche per tutti i sistemi antincendio a bordo.'},
-  {code:'STCW 1978',year:'Manila 2010',mods:['LSA','FIRE','GMDSS'],desc:'Cap. VI: Basic Safety Training obbligatorio per tutti i marittimi. Definisce le competenze minime per operare i sistemi di sicurezza.'},
-  {code:'COLREG 1972',year:'emend. 2007',mods:['NAV'],desc:'Uso pratico di radar, AIS e ECDIS nella prevenzione degli abbordi in mare.'},
+  {code:'SAR 1979',year:'emend. 2004',mods:['ORG','GMDSS'],fullName:'Search and Rescue Convention',desc:'Struttura le SRR, i centri MRCC/MRSC e il concetto di "place of safety". Definisce gli obblighi degli Stati costieri nell\'organizzazione SAR.'},
+  {code:'IAMSAR Manual',year:'ed. 2022',mods:['ORG','GMDSS'],fullName:'International Aeronautical and Maritime Search and Rescue Manual',desc:'Manuale IMO/ICAO in 3 volumi: Vol.I (organizzazione SAR), Vol.II (coordinamento missione), Vol.III (mezzi mobili). Base operativa di tutti i MRCC.'},
+  {code:'ISM Code',year:'emend. 2021',mods:['ORG','FIRE','NAV'],fullName:'International Safety Management Code',desc:'Impone il Safety Management System (SMS) su ogni nave. Dal 2021 integra il cyber risk. Verificato da flag State con DOC/SMC.'},
+  {code:'SOLAS 1974',year:'vers. 2024',mods:['LSA','FIRE','GMDSS','NAV','ORG'],fullName:'Safety Of Life At Sea',desc:'La convenzione madre. Cap. II-2 (antincendio), III (mezzi salvataggio e drills), IV (GMDSS), V (navigazione sicura).'},
+  {code:'LSA Code',year:'MSC.48(66)',mods:['LSA'],fullName:'Life-Saving Appliances Code',desc:'Requisiti tecnici dettagliati per ogni mezzo di salvataggio individuale e collettivo.'},
+  {code:'FSS Code',year:'MSC.98(73)',mods:['FIRE'],fullName:'Fire Safety Systems Code',desc:'Specifiche tecniche per tutti i sistemi antincendio a bordo: rilevatori, impianti fissi CO₂/schiuma, sprinkler, estintori.'},
+  {code:'STCW 1978',year:'Manila 2010',mods:['LSA','FIRE','GMDSS'],fullName:'Standards of Training, Certification and Watchkeeping',desc:'Cap. VI: Basic Safety Training obbligatorio per tutti i marittimi. Definisce le competenze minime per operare i sistemi di sicurezza.'},
+  {code:'COLREG 1972',year:'emend. 2007',mods:['NAV'],fullName:'Convention on International Regulations for Preventing Collisions at Sea',desc:'Uso pratico di radar, AIS e ECDIS nella prevenzione degli abbordi in mare.'},
+  {code:'ISPS Code',year:'2002',mods:['ORG'],fullName:'International Ship and Port Facility Security Code',desc:'Sicurezza da minacce esterne (terrorismo, pirateria). Introduce tre livelli di sicurezza (1-2-3). Ogni nave ha un Ship Security Plan (SSP) gestito dallo SSO.'},
 ];
 
 
@@ -381,6 +382,24 @@ const ACRONYMS={
   'LEL':['Lower Explosive Limit','Concentrazione minima di gas infiammabile per un esplosione. Soglia di allarme: 10% LEL.'],
   'SSO':['Ship Security Officer','Ufficiale responsabile del Ship Security Plan secondo il Codice ISPS.'],
   'PPE':['Personal Protective Equipment','Dispositivi di protezione individuale: giacca ignifuga, stivali, guanti, casco, SCBA.'],
+  'ACO':['Aircraft Coordination Officer','Coordinatore aereo designato dal MRCC quando partecipano aeromobili SAR. Gestisce i protocolli IAMSAR/ICAO.'],
+  'SSP':['Ship Security Plan','Piano di sicurezza della nave contro minacce esterne (terrorismo, pirateria). Redatto dallo SSO secondo il Codice ISPS.'],
+  'PFSO':['Port Facility Security Officer','Responsabile della sicurezza del porto. Coordina con lo SSO secondo il Codice ISPS nei livelli di sicurezza.'],
+  'MF':['Medium Frequency','Banda radio 300 kHz–3 MHz. Frequenza 2182 kHz per emergenze marittime. Portata ~150-400 nm (area GMDSS A2).'],
+  'HF':['High Frequency','Banda radio 3–30 MHz. Portata mondiale via ionosfera. Utilizzata nelle aree GMDSS A3/A4 (oceano aperto e rotte polari).'],
+  'GPS':['Global Positioning System','Sistema di posizionamento satellitare statunitense. Precisione ±3-5 m. Vulnerabile a jamming e spoofing in alcune aree geografiche.'],
+  'GNSS':['Global Navigation Satellite System','Termine generico per sistemi di posizionamento satellitare: GPS (USA), GLONASS (Russia), Galileo (UE), BeiDou (Cina).'],
+  'GT':['Gross Tonnage','Stazza lorda: misura del volume interno totale della nave. Parametro che determina obblighi di AIS, ECDIS, VDR, BNWAS.'],
+  'ENC':['Electronic Navigational Chart','Carta nautica elettronica ufficiale usata dall\'ECDIS. Aggiornamento settimanale obbligatorio per mantenere la validita.'],
+  'UKC':['Under Keel Clearance','Spazio libero tra la chiglia della nave e il fondo del mare. Parametro di allarme critico nell\'ECDIS.'],
+  'COG':['Course Over Ground','Rotta effettiva della nave rispetto al fondo marino, trasmessa dall\'AIS. Puo differire dalla rotta di prora per correnti e deriva.'],
+  'SOG':['Speed Over Ground','Velocita effettiva della nave rispetto al fondo marino, trasmessa dall\'AIS insieme a COG ed ETA.'],
+  'ETA':['Estimated Time of Arrival','Ora di arrivo stimata al porto di destinazione. Trasmessa dall\'AIS insieme a posizione, rotta e velocita.'],
+  'TTX':['Tabletop Exercise','Esercitazione da tavolo per la gestione di scenari di emergenza simulati, senza manovre fisiche. Raccomandata da IAMSAR.'],
+  'RCC':['Rescue Coordination Centre','Centro di coordinamento del soccorso aereo. In Italia: RCC Roma (Aeronautica Militare), coopera con MRCC per operazioni miste.'],
+  'ICAO':['International Civil Aviation Organization','Organizzazione ONU per l\'aviazione civile con sede a Montreal. Co-autrice dell\'IAMSAR Manual insieme all\'IMO.'],
+  'SUEM':['Servizio Urgenza Emergenza Medica','Servizio italiano di emergenza medica (118). Coordinato con il MRCC per il soccorso sanitario nelle operazioni SAR.'],
+  'ITU':['International Telecommunication Union','Agenzia ONU per le telecomunicazioni. Definisce le frequenze radio per il GMDSS (VHF Ch.16/70, 2182 kHz, 406 MHz).'],
 };
 
 function AcrTag({w}){
@@ -633,13 +652,15 @@ function ModuleDetail({mid,setPage}){
 /* ══ VIDEO PAGE — unico video ══ */
 function VideoPage(){
   return(
-    <div style={{position:'fixed',top:'52px',left:0,right:0,bottom:'60px',maxWidth:'600px',margin:'0 auto',background:'#000'}}>
-      <iframe
-        src="https://drive.google.com/file/d/1SQXY0bwCr8nw5Tci6ASd49K7HMrmH7Lf/preview"
-        style={{width:'100%',height:'100%',border:'none',display:'block'}}
-        allow="autoplay"
-        allowFullScreen
-      />
+    <div className="fi">
+      <div style={{background:'#000'}}>
+        <iframe
+          src="https://drive.google.com/file/d/1SQXY0bwCr8nw5Tci6ASd49K7HMrmH7Lf/preview"
+          style={{width:'100%',aspectRatio:'16/9',border:'none',display:'block'}}
+          allow="autoplay"
+          allowFullScreen
+        />
+      </div>
     </div>
   );
 }
@@ -730,16 +751,21 @@ function NormePage(){
       {normaRefs.map((n,i)=>(
         <div key={i} className="card card-tap" style={{marginBottom:'.45rem'}} onClick={()=>setOpen(open===i?null:i)}>
           <div className="acc-head">
-            <div>
-              <span style={{fontFamily:'DM Serif Display,serif',fontSize:'1rem',color:'var(--gold)'}}>{n.code}</span>
-              <span style={{color:'var(--txt3)',fontSize:'.7rem',marginLeft:'.5rem'}}>{n.year}</span>
+            <div style={{flex:1,minWidth:0}}>
+              <div style={{display:'flex',alignItems:'baseline',gap:'.45rem',flexWrap:'wrap'}}>
+                <span style={{fontFamily:'DM Serif Display,serif',fontSize:'1rem',color:'var(--gold)'}}>{n.code}</span>
+                <span style={{color:'var(--txt3)',fontSize:'.7rem'}}>{n.year}</span>
+              </div>
+              {open===i&&n.fullName&&(
+                <p style={{fontSize:'.7rem',color:'var(--gold2)',opacity:.85,marginTop:'.18rem',fontStyle:'italic',lineHeight:1.35}}>{n.fullName}</p>
+              )}
               <div style={{display:'flex',gap:'.25rem',flexWrap:'wrap',marginTop:'.3rem'}}>
                 {n.mods.map(mc=>{const mod=modules.find(x=>x.code===mc);return mod?(
                   <span key={mc} style={{fontSize:'.62rem',padding:'.1rem .35rem',borderRadius:'3px',background:mod.bg,color:mod.color,border:`1px solid ${mod.color}2a`}}>{mc}</span>
                 ):null;})}
               </div>
             </div>
-            <span style={{color:'var(--txt3)'}}>{open===i?'▲':'▼'}</span>
+            <span style={{color:'var(--txt3)',flexShrink:0,marginLeft:'.5rem'}}>{open===i?'▲':'▼'}</span>
           </div>
           {open===i&&(
             <p style={{marginTop:'.65rem',paddingTop:'.65rem',borderTop:'1px solid var(--border)',color:'var(--txt2)',fontSize:'.8rem',lineHeight:1.72}}>{withAcr(n.desc)}</p>
