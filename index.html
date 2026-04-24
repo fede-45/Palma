@@ -776,199 +776,280 @@ function NormePage(){
   );
 }
 
-/* ══ STUDIO PAGE (password protected) ══ */
+/* ══ STUDIO PAGE ══ */
+const slidesPPT=[
+  {n:1,titolo:'Slide 1 — Titolo',arg:'INTRO',
+   cosaDire:'Buongiorno. Parlerò dell\'organizzazione delle emergenze in mare: un sistema che integra la gestione a bordo, le comunicazioni di soccorso e il coordinamento internazionale. L\'obiettivo è uno solo: salvare vite umane nel minor tempo possibile.',
+   cosaSapere:'Non devi ancora dire nulla di tecnico. Stai aprendo. Il professore ti valuta dalla postura e dal tono. Non iniziare con "ehm allora". Usa la parola sistema integrato: la sicurezza marittima non è un solo strumento, è una catena di elementi. Ogni parte che presenterai è un anello di quella catena.',
+   domandeTrabocchetto:['Perché usi il termine sistema integrato?','Qual è il filo conduttore di tutta la presentazione?']},
+  {n:2,titolo:'Slide 2 — Introduzione',arg:'INTRO',
+   cosaDire:'L\'emergenza in mare non coinvolge solo la nave. Mette in moto un sistema che unisce l\'organizzazione a bordo, i sistemi di comunicazione GMDSS e le autorità di soccorso a terra. Tutto è standardizzato a livello internazionale dall\'IMO, così che navi di ogni nazionalità possano cooperare con qualsiasi MRCC.',
+   cosaSapere:'IMO = International Maritime Organization, agenzia ONU con sede a Londra, 176 Stati membri. La standardizzazione è il punto chiave: una nave greca in crisi nel Mediterraneo usa gli stessi protocolli che userebbe in qualsiasi altro mare. Senza standard comuni il sistema collassa. I tre elementi fondamentali: nave, comunicazioni, soccorso a terra.',
+   domandeTrabocchetto:['Cosa fa l\'IMO?','Perché la standardizzazione internazionale è fondamentale?','Chi controlla che le navi rispettino le norme IMO?']},
+  {n:3,titolo:'Slide 3 — Filo logico',arg:'INTRO',
+   cosaDire:'Prima si previene: navigazione sicura, formazione, manutenzione. Se nonostante ciò avviene un incidente, scatta la gestione a bordo. Poi arriva la comunicazione del soccorso tramite GMDSS. Quindi intervengono i soccorsi esterni coordinati dal MRCC. Infine i mezzi LSA garantiscono la sopravvivenza dei naufraghi fino all\'arrivo dei soccorsi.',
+   cosaSapere:'Schema da ricordare: Prevenzione → Emergenza a bordo → Comunicazione → Soccorso → Sopravvivenza. Ogni slide che segue copre uno di questi passaggi. Se il prof chiede a cosa serve questa slide: dimostra che nessun elemento esiste da solo. La prevenzione serve a non arrivare all\'emergenza. Se ci arrivi, l\'organizzazione limita i danni. Il GMDSS attiva i soccorsi. I LSA tengono vive le persone mentre i soccorsi arrivano.',
+   domandeTrabocchetto:['Se la prevenzione funziona, il resto serve ancora?','In quale fase interviene il GMDSS?','Cosa succede se un anello della catena si rompe?']},
+  {n:4,titolo:'Slide 4 — Sistema SAR',arg:'SAR',
+   cosaDire:'Il sistema SAR, Search and Rescue, divide il mondo in SRR, Search and Rescue Region. Ogni SRR è assegnata a uno Stato che deve garantire il soccorso in quella zona. La SRR non coincide con le acque territoriali: si estende anche in acque internazionali. Questo garantisce che non esistano zone scoperte.',
+   cosaSapere:'Norma: SAR Convention 1979, emendamenti 2004. La SRR è concetto geografico, non politico: non dipende dalla bandiera della nave. Il MRCC competente è quello della SRR in cui avviene l\'incidente. L\'Italia ha una delle SRR più estese del Mediterraneo. Fasi di allerta SAR: INCERFA (incertezza) → ALERFA (allerta) → DETRESFA (soccorso attivo). Place of safety: non basta tirare le persone dall\'acqua, bisogna portarle in un luogo sicuro a terra con cure, cibo, assistenza consolare.',
+   domandeTrabocchetto:['Una nave italiana in difficoltà nella SRR greca: chi interviene?','Cosa si intende per place of safety?','La SRR coincide con le acque territoriali?','Che cos\'è il DETRESFA?']},
+  {n:5,titolo:'Slide 5 — MRCC e OSC',arg:'SAR',
+   cosaDire:'Il MRCC, Maritime Rescue Coordination Centre, è il cervello del soccorso: riceve le allerte, valuta la situazione, decide la strategia, invia i soccorsi. In Italia: MRCC Roma, Guardia Costiera, attivo 24h su 24, 365 giorni l\'anno, numero 1530. Sotto di esso: MRSC secondari a Genova, Napoli, Palermo, Catania. Sul posto viene nominato un OSC, una nave o aeromobile che coordina fisicamente le unità presenti.',
+   cosaSapere:'Distinzione fondamentale spesso chiesta: MRCC decide la strategia da terra, OSC la esegue sul campo. OSC non comanda la nave in pericolo: coordina le risorse di soccorso. Quando ci sono aeromobili SAR il MRCC designa l\'ACO (Aircraft Coordination Officer) per gestire la componente aerea. MRCC Roma coopera con Aeronautica Militare (RCC Roma) e con SUEM 118 per la parte medica. Riferimento normativo: IAMSAR Manual Vol.I e Vol.II.',
+   domandeTrabocchetto:['Qual è la differenza tra MRCC e OSC?','Chi coordina gli elicotteri SAR?','A che numero si chiama il soccorso marittimo in Italia?','Cosa sono i MRSC e dove si trovano?']},
+  {n:6,titolo:'Slide 6 — Il Comandante',arg:'ORG',
+   cosaDire:'A bordo il Comandante, Master, ha la responsabilità totale sulla nave e su chiunque si trovi a bordo, sempre. In emergenza dichiara il Distress, attiva il Muster, mantiene le comunicazioni con il MRCC. Principio fondamentale: il Comandante non perde mai la responsabilità, anche se delega il coordinamento operativo. Ha anche l\'obbligo legale di prestare soccorso secondo SOLAS V R.33.',
+   cosaSapere:'SOLAS V R.33 = Duty to Render Assistance: se il Comandante riceve un segnale di soccorso deve deviare dalla rotta e prestare aiuto, salvo rischio per propria nave o equipaggio. Non è facoltativo. Chief Officer spesso anche Safety Officer: coordina ERT, gestisce Muster List, supervisiona drill. Chief Engineer: responsabile locali macchine. La catena di comando garantisce che ogni ordine abbia una provenienza chiara, evitando caos in emergenza.',
+   domandeTrabocchetto:['Il comandante può delegare la responsabilità?','Cosa impone SOLAS V R.33?','Chi è il Safety Officer e cosa fa?','Cosa succede se il Comandante non risponde a un segnale di soccorso?']},
+  {n:7,titolo:'Slide 7 — Emergency Response Team',arg:'ORG',
+   cosaDire:'L\'equipaggio è organizzato nell\'Emergency Response Team, ERT, diviso in squadre pre-assegnate. Il Fire Team affronta gli incendi. Il Rescue Team gestisce l\'abbandono nave e il soccorso dell\'uomo in mare. Il Medical Team assiste i feriti. Il Damage Control Team interviene su falle e allagamenti. Ogni ruolo è fisso, assegnato nella Muster List, conosciuto prima dell\'emergenza.',
+   cosaSapere:'Drills obbligatori per legge SOLAS III R.19: abbandono nave ogni mese su cargo, ogni settimana su passeggeri. Antincendio mensile. Man Overboard ogni 3 mesi. Ogni drill registrato nel log di bordo con data, tipo, esito, criticità. Tabletop Exercise TTX: esercitazione da tavolo raccomandata da IAMSAR, simula uno scenario senza manovre fisiche. Se un membro ERT non conosce il suo ruolo il sistema si rompe: per questo i drill esistono e non sono opzionali.',
+   domandeTrabocchetto:['Con che frequenza il drill di abbandono nave su cargo?','Cos\'è la Tabletop Exercise?','Cosa si registra nel log di bordo dopo un drill?','Cosa fa il Damage Control Team?']},
+  {n:8,titolo:'Slide 8 — Muster List e SMS',arg:'ORG',
+   cosaDire:'La Muster List, Piano di Ruolo, assegna a ogni membro dell\'equipaggio la Muster Station, i compiti in emergenza e i compiti in abbandono nave. Deve essere aggiornata ad ogni cambio equipaggio, affissa in posizioni visibili, nelle lingue parlate a bordo. Il Safety Management System è il manuale operativo imposto dall\'ISM Code: contiene tutte le procedure e le responsabilità. Dal 2021 include il cyber risk.',
+   cosaSapere:'Muster List: aggiornamento 2022 con MSC.1/Circ.1532 Rev.1. Muster Card = scheda individuale esposta in cabina con simboli IMO. SMS verificato con audit: risultato per compagnia = DOC (Document of Compliance, 5 anni), per nave = SMC (Safety Management Certificate, 5 anni). DOC scaduto = tutta la flotta bloccata. DPA (Designated Person Ashore): collegamento obbligatorio nave-management a terra, previsto dall\'ISM Code. Cyber risk nel SMS dal 1 gennaio 2021 per effetto della circolare MSC-FAL.1/Circ.3 Rev.2.',
+   domandeTrabocchetto:['Cosa succede se la Muster List non è aggiornata?','Cos\'è il DOC e chi lo rilascia?','Chi è il DPA?','Perché dal 2021 il cyber risk è nel SMS?','Differenza tra DOC e SMC?']},
+  {n:9,titolo:'Slide 9 — Mezzi di salvataggio',arg:'LSA',
+   cosaDire:'I mezzi LSA, Life-Saving Appliances, entrano in gioco quando la nave non può più proteggere le persone. Mezzi individuali: giubbotto di salvataggio, muta di immersione, TPA, anello di salvataggio. Mezzi collettivi: scialuppa chiusa, zattera gonfiabile SOLAS, Fast Rescue Boat. Ogni mezzo ha requisiti tecnici precisi regolati dal LSA Code in combinazione con SOLAS III.',
+   cosaSapere:'Giubbotto Tipo I: 150 Newton, mare aperto, mantiene a galla anche persona incosciente con testa fuori dall\'acqua, indossaggio entro 60 secondi. Tipo II: 100 N, acque protette. Muta: mantiene almeno 2 gradi corporei in acqua a 0 gradi per 6 ore, indossaggio entro 2 minuti senza assistenza. TPA: copre almeno 80% del corpo, riduce dispersione termica, obbligatoria nelle zattere. Scialuppa chiusa: motore diesel avviante in 2 minuti anche completamente allagata, autoraddrizzante, 3 litri acqua per persona. Zattera SOLAS: tipo A mare aperto, tipo B entro 20 nm dalla costa, gonfiaggio CO2 automatico, revisione ogni 12 mesi. Fast Rescue Boat: almeno 6 nodi per 4 ore, obbligatoria su passeggeri.',
+   domandeTrabocchetto:['Differenza tra giubbotto Tipo I e Tipo II?','Perché la muta deve essere indossabile in 2 minuti?','Cosa contiene una scialuppa di salvataggio?','Differenza tra zattera tipo A e tipo B?','Cos\'è la TPA e dove si trova?']},
+  {n:10,titolo:'Slide 10 — Davit e HRU',arg:'LSA',
+   cosaDire:'Il Davit è il sistema di calata delle scialuppe: può essere a caduta libera da poppa o per gravità laterale. Deve essere operabile da una sola persona. L\'HRU, Hydrostatic Release Unit, è il dispositivo critico delle zattere: si attiva automaticamente per pressione idrostatica quando la nave affonda tra 1,5 e 4 metri di profondità, liberando la zattera. Se l\'HRU scade o non funziona, la zattera affonda con la nave.',
+   cosaSapere:'Sequenza HRU: nave affonda → acqua raggiunge 1,5 m → pressione idrostatica attiva HRU → zattera si libera e galleggia → peso nave che affonda tira la cima di collegamento → cima apre valvola CO2 → zattera si gonfia. Scadenza HRU ogni 2 anni: uno dei controlli più stringenti delle ispezioni PSC (Port State Control). Davit: prove carico al 150% ogni 5 anni. Responsabile della verifica: Safety Officer. Responsabile del varo: Rescue Team assegnato nella Muster List.',
+   domandeTrabocchetto:['A quale profondità esatta si attiva l\'HRU?','Cosa succede se la scadenza dell\'HRU è superata?','Perché il Davit deve essere operabile da una sola persona?','Chi verifica il funzionamento dell\'HRU?']},
+  {n:11,titolo:'Slide 11 — Rilevazione incendio',arg:'FIRE',
+   cosaDire:'L\'incendio richiede tre elementi: combustibile, ossigeno e calore. Togli uno dei tre e si spegne: questo principio guida ogni sistema antincendio. A bordo ci sono tre tipi di rilevatori: ionizzazione per fuochi secchi e veloci, ottico per fuochi lenti con molto fumo, il più diffuso, e termico differenziale per cucine e locali macchine. Tutti collegati al pannello centrale in plancia, presidiato 24 ore.',
+   cosaSapere:'Pannello centrale: quando scatta allarme → indica zona (A, B, C...) → aziona automaticamente porte tagliafuoco (A-class e B-class divisions) → chiude ventilazione → suona allarme generale → allerta Safety Officer che attiva Fire Team. Compartimentazione: prima difesa passiva. A-class divisions: resistenza 60 min A-60, 30 min A-30, 0 min A-0. Rilevatori gas: obbligatori in locali batterie, depositi vernici, pump room. Soglia 10% del LEL per gas infiammabili, 50 ppm per CO. Norma: SOLAS II-2 R.7, FSS Code 9.',
+   domandeTrabocchetto:['Perché in cucina non si usa il rilevatore di fumo?','Cosa fa automaticamente il pannello antincendio quando rileva allarme?','Cosa sono le A-class divisions?','Cos\'è il LEL?']},
+  {n:12,titolo:'Slide 12 — Spegnimento e Fire Team',arg:'FIRE',
+   cosaDire:'L\'impianto a CO2 nei locali macchine e stive deve raggiungere almeno il 34% del volume. Si attiva in due stadi: pre-allarme di 20 secondi per l\'evacuazione, poi sgancio. Gli sprinkler automatici sulle navi passeggeri si attivano senza intervento umano a 68 o 93 gradi. Il Fire Team usa il Fireman\'s Outfit completo: giacca ignifuga, casco, guanti, stivali, SCBA con 30 minuti di autonomia, lampada antideflagrante, ascia.',
+   cosaSapere:'CO2: dopo lo sgancio nessuno entra senza SCBA. Il pre-allarme 20 secondi è obbligatorio per legge SOLAS II-2 R.10. Lo sgancio è ordinato dal Comandante, non eseguito autonomamente. Sprinkler: bulbo rosso 68 gradi, verde 93 gradi, ogni testina copre circa 12 m2. Hi-Fog acqua nebulizzata sopra 100 bar: alternativa ecologica al CO2 nei nuovi locali macchine. Schiuma: classe B liquidi, coperta tanker, pump room. Fireman\'s Outfit: almeno 2 set in posizioni fisicamente separate SOLAS II-2 R.10. Idranti: ogni punto del ponte raggiungibile con al massimo 2 manichette da 15 m, pressione min 2,7 bar. Estintori: revisione annuale.',
+   domandeTrabocchetto:['Perché il CO2 si attiva in due stadi?','A che temperatura si attivano gli sprinkler a bulbo rosso?','Quanti Fireman\'s Outfit sono obbligatori e perché in posizioni separate?','Chi ordina lo sgancio del CO2?','Cosa fa lo SCBA e quanto dura?']},
+  {n:13,titolo:'Slide 13 — GMDSS',arg:'GMDSS',
+   cosaDire:'Il GMDSS, Global Maritime Distress and Safety System, ha sostituito il codice Morse dal 1999. Prima serviva un operatore radio in ascolto. Con il GMDSS i segnali digitali e satellitari arrivano automaticamente al MRCC. Divide i mari in quattro aree: A1 entro il VHF costiero, A2 entro il MF, A3 in copertura satellite INMARSAT, A4 nelle zone polari con HF.',
+   cosaSapere:'Le 9 funzioni ufficiali del GMDSS secondo SOLAS IV R.4: allerta nave-terra; terra-nave; nave-nave; coordinamento SAR; sicurezza nave-nave; ricezione MSI tramite NAVTEX; comunicazioni routine; porto-nave; ponte-ponte. Funzioni 1 e 4 sono il cuore del sistema. VHF Ch.70: SOLO DSC (Digital Selective Calling), trasmissione digitale automatica di MMSI più posizione GPS al MRCC, senza voce, non si usa per altro. VHF Ch.16: voce, procedura MAYDAY = Mayday Mayday Mayday più nome nave più posizione più natura emergenza più persone a bordo, ascolto obbligatorio 24h. 3 VHF portatili IPX7 obbligatori sulle scialuppe. MF 2182 kHz: frequenza internazionale di guardia area A2. NAVTEX 518 kHz: solo ricezione, portata circa 400 nm, distribuisce MSI e comunicati SAR in corso.',
+   domandeTrabocchetto:['Qual è la differenza tra canale 16 e canale 70?','Quante sono le funzioni del GMDSS?','Cosa fa il NAVTEX?','Cosa trasmette automaticamente il DSC su Ch.70?']},
+  {n:14,titolo:'Slide 14 — EPIRB, SART, AIS SART',arg:'GMDSS',
+   cosaDire:'L\'EPIRB trasmette su 406 MHz via satellite Cospas-Sarsat con il codice MMSI univoco della nave e la posizione GPS con errore inferiore ai 100 metri. Autonomia 48 ore. Si attiva manualmente o automaticamente a 1,5-4 metri di profondità. Il SART produce 12 punti sul radar del soccorritore nella banda X a 9 GHz, portata 5 nm da nave. L\'AIS SART è visibile su tutti i display AIS senza bisogno di radar attivo.',
+   cosaSapere:'EPIRB: primo anello della catena SAR. Quando il segnale arriva al MRCC tramite Cospas-Sarsat, il centro accede al database IMO e conosce subito nome della nave, armatore, numero persone a bordo, tipo nave, porto di partenza. EPIRB con MMSI non registrato produce allarme anonimo molto più difficile da gestire. I vecchi 121,5 MHz non sono più riconosciuti come segnale di soccorso dal 2009: conta solo 406 MHz. SART: autonomia 96h standby più 8h trasmissione, 2 unità obbligatorie assegnate a scialuppe specifiche nella Muster List. AIS SART: trasmette su 161.975 MHz e 162.025 MHz, visibile come punto lampeggiante su ECDIS e display AIS di tutte le navi vicine, non richiede radar X-band attivo sul soccorritore: fondamentale nelle operazioni con molte unità coordinate dall\'OSC.',
+   domandeTrabocchetto:['Perché l\'EPIRB ha un codice MMSI registrato?','Differenza tra SART e AIS SART?','Su quale frequenza trasmette l\'EPIRB?','Quante ore dura un EPIRB?','Perché 121,5 MHz non funziona più?']},
+  {n:15,titolo:'Slide 15 — Navigazione sicura e normative',arg:'NAV',
+   cosaDire:'AIS trasmette ogni 2-10 secondi posizione, rotta COG, velocità SOG, destinazione ed ETA. Il radar ARPA calcola CPA e TCPA per prevenire le collisioni. L\'ECDIS integra carte ENC con GPS, AIS e radar, con allarmi automatici per UKC e deviazione di rotta. Il VDR registra le ultime 12 ore per le indagini. Il BNWAS previene il colpo di sonno. Dal 2021 il cyber risk è nel SMS. Le norme: SOLAS, ISM Code, SAR Convention, STCW, LSA Code, FSS Code, COLREG, ISPS Code.',
+   cosaSapere:'AIS obbligatorio: navi almeno 300 GT internazionale, almeno 500 GT altro. Trasmette anche MMSI, nome, tipo, persone a bordo. CPA = distanza minima prevista, TCPA = tempo a quel punto. VDR: 12 ore ciclo continuo, capsula resiste 6000 m e 1000 gradi per 1 ora. BNWAS: se l\'ufficiale di guardia non risponde entro 3-12 min, allarme in plancia poi in cabina Comandante poi agli altri ufficiali, obbligatorio su navi almeno 150 GT dal 2011. GPS spoofing documentato: Mediterraneo orientale, Mar Nero, Golfo Persico. Norme: SOLAS nata nel 1914 dopo il Titanic (aprile 1912, circa 1500 morti) è la madre di tutto. ISM Code impone il SMS. SAR Convention struttura il soccorso. STCW forma i marittimi. LSA Code e FSS Code danno i requisiti tecnici. COLREG regola la navigazione. ISPS Code la sicurezza esterna con 3 livelli e SSP gestito dallo SSO.',
+   domandeTrabocchetto:['Cos\'è il CPA e come si usa?','Cosa registra il VDR?','Cos\'è il GPS spoofing?','Perché esiste SOLAS?','Differenza tra LSA Code e FSS Code?','Cos\'è l\'ISPS Code?']},
+  {n:16,titolo:'Slide 16 — Conclusione',arg:'FINE',
+   cosaDire:'L\'organizzazione delle emergenze in mare è un sistema integrato in cui ogni elemento dipende dagli altri. La prevenzione riduce il rischio. L\'organizzazione a bordo garantisce la risposta immediata. I LSA permettono la sopravvivenza. Il GMDSS attiva i soccorsi. Il SAR coordina tutto internazionalmente. Le norme IMO rendono il sistema universale. L\'obiettivo è sempre uno: salvare vite umane.',
+   cosaSapere:'La conclusione dimostra che hai capito come tutto si collega. Torna sempre all\'obiettivo: salvare vite. Collegamento storico forte: il Titanic aprile 1912, circa 1500 morti, scialuppe insufficienti, nessun muster drill, radio non presidiata h24, nessuna zona SAR organizzata. Ogni norma citata esiste perché qualcosa è andato storto e si è deciso che non poteva ripetersi. Risposta a domanda trabocchetto classica: se il GMDSS funziona ma non c\'è organizzazione a bordo, il MRCC sa dove sei ma se nessuno a bordo sa cosa fare i mezzi LSA non vengono usati correttamente e le persone muoiono ugualmente. Il sistema deve funzionare tutto insieme.',
+   domandeTrabocchetto:['Perché è nata la SOLAS?','Se il GMDSS funziona, serve ancora l\'organizzazione a bordo?','Cos\'è successo con il Titanic?','Quale norma copre la formazione dei marittimi?']},
+];
+
 const studioSections=[
-  {
-    id:'sar',ico:'🌍',titolo:'Sistema SAR Internazionale',colore:'var(--org)',
-    contenuto:[
-      {tipo:'intro',testo:'Il sistema SAR (Search and Rescue) è l\'organizzazione internazionale che garantisce il soccorso in mare ovunque nel mondo. Non dipende da un singolo Stato: è una rete coordinata di centri, navi e aerei che si attiva ogni volta che una vita è in pericolo.'},
-      {tipo:'sezione',titolo:'Divisione del mondo in SRR',testo:'Il globo è suddiviso in aree di responsabilità chiamate SRR (Search and Rescue Region), ognuna assegnata a uno Stato firmatario della SAR Convention 1979. La SRR non coincide con le acque territoriali: può estendersi ben oltre, anche in alto mare. Questo significa che un MRCC può coordinare operazioni SAR in acque internazionali.'},
-      {tipo:'sezione',titolo:'MRCC e MRSC',testo:'Ogni SRR è presidiata da un MRCC (Maritime Rescue Coordination Centre), il centro principale responsabile di ricevere allerte, valutare l\'emergenza, inviare soccorsi e coordinare tutte le unità. Sotto il MRCC operano gli MRSC (Maritime Rescue Sub-Centre), centri secondari per aree specifiche.\n\nIn Italia: MRCC Roma (Guardia Costiera) — attivo 24h/365g, numero emergenza 1530. MRSC secondari: Genova, Napoli, Palermo, Catania.'},
-      {tipo:'sezione',titolo:'OSC — On Scene Coordinator',testo:'Quando l\'incidente è in corso, il MRCC non può agire fisicamente: nomina quindi un OSC (On Scene Coordinator), cioè una nave o un aeromobile presente sul luogo. L\'OSC coordina le unità SAR in scena, assegna settori di ricerca, mantiene le comunicazioni con il MRCC.\n\n⚠️ Distinzione fondamentale: il MRCC decide la strategia, l\'OSC la esegue sul posto.'},
-      {tipo:'keyword',voci:['SRR → area geografica di responsabilità SAR','MRCC → centro principale di coordinamento','MRSC → centro secondario, dipendente dal MRCC','OSC → coordinatore fisico sul luogo dell\'incidente','Place of safety → destinazione finale dei sopravvissuti']},
-    ],
-    slideScript:[
-      {slide:'Slide 3 — Sistema SAR',testo:'Il sistema SAR divide il globo in aree chiamate SRR, ognuna gestita da un MRCC che coordina tutte le operazioni di soccorso. In Italia il centro principale è l\'MRCC di Roma, attivo 24 ore su 24.'},
-      {slide:'Slide 4 — MRCC e OSC',testo:'Il MRCC gestisce la risposta da terra, mentre sul luogo dell\'incidente viene designato un OSC che coordina le unità presenti. È importante capire che il MRCC decide, l\'OSC esegue.'},
-    ],
-  },
-  {
-    id:'bordo',ico:'🚢',titolo:'Organizzazione a Bordo',colore:'var(--lsa)',
-    contenuto:[
-      {tipo:'intro',testo:'La sicurezza a bordo non è affidata al caso: ogni persona ha un ruolo preciso, definito da documenti ufficiali e obbligatori. L\'organizzazione è gerarchica e funziona solo se ognuno conosce il proprio compito prima che l\'emergenza accada.'},
-      {tipo:'sezione',titolo:'Il Comandante (Master)',testo:'Il Comandante è la figura apicale della sicurezza a bordo. Ha responsabilità totale sulla nave e sull\'equipaggio in ogni momento. In emergenza decide se dichiarare il Distress, attiva il Muster, mantiene il contatto con il MRCC.\n\nUn principio chiave: il Comandante non perde mai la responsabilità, anche se delega il coordinamento operativo agli ufficiali. Ha anche il dovere legale (SOLAS V R.33) di prestare soccorso a chiunque sia in pericolo in mare.'},
-      {tipo:'sezione',titolo:'Catena di comando',testo:'Sotto il Comandante opera il Chief Officer (Primo Ufficiale), spesso anche Safety Officer. Segue la catena degli ufficiali di macchina e di coperta, fino ai marinai. Questa gerarchia serve a evitare la confusione in emergenza: ogni ordine ha una provenienza chiara e ogni persona sa da chi ricevere istruzioni.'},
-      {tipo:'sezione',titolo:'Emergency Response Team (ERT)',testo:'L\'ERT è il sistema operativo dell\'emergenza. Non è una singola squadra ma un insieme di team specializzati:\n\n🔥 Fire Team → affronta e spegne gli incendi\n🛟 Rescue Team → gestisce l\'abbandono nave e il soccorso dell\'uomo in mare\n🏥 Medical Team → fornisce assistenza sanitaria ai feriti\n⚙️ Damage Control Team → interviene su falle, allagamenti, danni strutturali\n\nOgni membro ha un ruolo fisso, assegnato prima dell\'emergenza, non durante.'},
-      {tipo:'sezione',titolo:'Muster List',testo:'La Muster List (Piano di Ruolo) è il documento che assegna a ogni membro dell\'equipaggio: la stazione di raccolta, i compiti in emergenza, i compiti in caso di abbandono nave.\n\nDeve essere aggiornata ad ogni cambio equipaggio, affissa in posizioni visibili a bordo, disponibile nella lingua dell\'equipaggio. Senza Muster List l\'organizzazione collassa: nessuno sa dove andare.'},
-      {tipo:'sezione',titolo:'Safety Management System (SMS)',testo:'Il SMS è il manuale operativo di sicurezza della nave, imposto dall\'ISM Code. Contiene le procedure per ogni tipo di emergenza, le responsabilità di ogni figura, i protocolli di comunicazione. Dal 2021 deve includere anche la gestione del cyber risk. Viene verificato periodicamente con audit ufficiali che rilasciano il DOC (Document of Compliance) alla compagnia e il SMC (Safety Management Certificate) alla nave.'},
-      {tipo:'keyword',voci:['Master → responsabilità assoluta, mai delegabile','ERT → squadre specializzate pre-assegnate','Muster List → chi fa cosa, dove, quando','SMS → manuale operativo, obbligatorio per legge','ISM Code → norma che impone il SMS']},
-    ],
-    slideScript:[
-      {slide:'Slide 5 — Organizzazione a bordo',testo:'A bordo il comandante ha la responsabilità totale e mantiene sempre il controllo, anche in emergenza. Esiste una catena di comando precisa che permette di agire rapidamente senza confusione.'},
-      {slide:'Slide 6 — Emergency Team',testo:'L\'equipaggio è organizzato in squadre specializzate dell\'ERT: il Fire Team per gli incendi, il Rescue Team per l\'abbandono nave, il Medical Team per i feriti e il Damage Control per i danni strutturali. Ogni membro conosce il suo ruolo prima dell\'emergenza.'},
-      {slide:'Slide 7 — Muster List e SMS',testo:'La Muster List è il documento che assegna ruoli e posizioni in emergenza. Il Safety Management System è invece il manuale che contiene tutte le procedure. Senza questi strumenti l\'organizzazione non reggerebbe.'},
-    ],
-  },
-  {
-    id:'lsa',ico:'🛟',titolo:'Mezzi di Salvataggio (LSA)',colore:'var(--lsa)',
-    contenuto:[
-      {tipo:'intro',testo:'I mezzi di salvataggio entrano in gioco quando la nave non può più proteggere le persone a bordo. L\'obiettivo è garantire la sopravvivenza fino all\'arrivo dei soccorsi. Si dividono in mezzi individuali (per ogni persona) e collettivi (per gruppi).'},
-      {tipo:'sezione',titolo:'Mezzi individuali',testo:'Giubbotto di salvataggio: esistono due tipi principali. Tipo I (150 N) per navi cargo e passeggeri in mare aperto: mantiene a galla anche una persona incosciente con la testa fuori dall\'acqua. Tipo II (100 N) per acque protette. Deve essere indossato in meno di 60 secondi.\n\nMuta di immersione: protegge dall\'ipotermia mantenendo la temperatura corporea in acqua gelida. Deve essere indossata in meno di 2 minuti senza assistenza.\n\nTPA (Thermal Protective Aid): borsa isolante che riduce la dispersione di calore per convezione. Copre almeno l\'80% del corpo. Si trova nelle dotazioni obbligatorie delle zattere.\n\nAnello di salvataggio: ogni 4 unità, una deve avere la luce automatica e una la sagola da 30 m. Posizionati su entrambe le murate.'},
-      {tipo:'sezione',titolo:'Mezzi collettivi',testo:'Scialuppa di salvataggio chiusa: ha capacità per il 100% delle persone su ogni lato (cargo) o il 125% totale (passeggeri). Ha motore diesel avviante anche se allagata, è autoraddrizzante. Dotata di acqua, viveri, kit medico, razzi, bussola.\n\nZattera gonfiabile SOLAS: si gonfia automaticamente con CO₂ al contatto con l\'acqua. Disponibile in tipo A (mare aperto) e tipo B (acque protette). Da 6 a 25 persone. Revisione obbligatoria ogni 12 mesi.\n\nFast Rescue Boat: imbarcazione veloce (≥ 6 nodi per 4 ore) per il recupero rapido di persone in acqua. Obbligatoria su navi passeggeri.'},
-      {tipo:'sezione',titolo:'Sistemi di varo e attivazione',testo:'Davit: il sistema di calata delle scialuppe. Può essere a caduta libera (free-fall) o per gravità (gravity). Operabile da una sola persona. Prove di carico al 150% ogni 5 anni.\n\nHRU (Hydrostatic Release Unit): dispositivo critico che sgancia automaticamente la zattera se la nave affonda, a una profondità di 1,5–4 metri. Se l\'HRU non funziona la zattera affonda con la nave. Scadenza ogni 2 anni. È forse il dispositivo su cui insistono di più le domande d\'esame.'},
-      {tipo:'keyword',voci:['Giubbotto Tipo I → 150 N, mare aperto','Muta → ipotermia, 2 min senza assistenza','HRU → sgancio automatico a 1,5-4 m, scadenza 2 anni','Zattera tipo A → mare aperto, tipo B → acque protette','Davit → sistema di calata scialuppe']},
-    ],
-    slideScript:[
-      {slide:'Slide 8 — Mezzi di salvataggio',testo:'I mezzi di salvataggio garantiscono la sopravvivenza dopo l\'abbandono della nave. Si dividono in individuali, come giubbotti e mute, e collettivi, come scialuppe e zattere. Ogni mezzo ha caratteristiche tecniche precise regolate dal LSA Code.'},
-      {slide:'Slide 9 — Sistemi di attivazione',testo:'Il Davit permette di calare le scialuppe in modo controllato, mentre l\'HRU attiva automaticamente le zattere se la nave affonda, fino a una profondità di 1,5-4 metri. L\'HRU è critico: se non funziona, la zattera si perde con la nave.'},
-    ],
-  },
-  {
-    id:'fire',ico:'🔥',titolo:'Sistemi Antincendio',colore:'var(--fire)',
-    contenuto:[
-      {tipo:'intro',testo:'L\'incendio è una delle emergenze più pericolose a bordo perché si propaga rapidamente in ambienti chiusi e ricchi di materiali combustibili. La risposta deve essere immediata, coordinata e basata su sistemi sia automatici che umani.'},
-      {tipo:'sezione',titolo:'Il triangolo del fuoco',testo:'Il fuoco richiede la contemporanea presenza di tre elementi: combustibile (gasolio, olii, materiali di bordo), ossigeno (l\'aria nei locali chiusi) e calore (fonte di innesco). Per spegnere un incendio basta eliminare uno dei tre elementi:\n\n— CO₂: rimuove l\'ossigeno\n— Acqua / Hi-Fog: abbassa il calore\n— Compartimentazione: isola il combustibile\n\nCapire questo principio ti permette di spiegare perché si usa un sistema invece di un altro.'},
-      {tipo:'sezione',titolo:'Rilevazione e allarme',testo:'A bordo esistono tre tipi principali di rilevatori: ionizzazione (fuochi veloci e secchi), ottico (fuochi lenti con molto fumo, più comune), termico (per cucine e locali macchine dove ci sarebbe fumo ordinario). Tutti sono collegati a un pannello centrale in plancia, presidiato 24 ore. Il pannello indica la zona e aziona automaticamente porte tagliafuoco e chiusura ventilazione.'},
-      {tipo:'sezione',titolo:'Sistemi fissi di spegnimento',testo:'Impianto CO₂: usato in locali macchine e stive. Deve raggiungere ≥ 34% di concentrazione. Si attiva in due stadi: pre-allarme (almeno 20 secondi per evacuare) poi sgancio. ⚠️ Nessuno deve trovarsi nel locale dopo lo sgancio senza SCBA.\n\nSprinkler automatico: obbligatorio su navi passeggeri. Le testine si rompono per calore (rosso = 68°C, verde = 93°C). Ogni testina copre ~12 m². Nessun intervento umano necessario.\n\nSchiuma / Hi-Fog: schiuma per incendi su coperta e nelle pump room (classe B). Hi-Fog (acqua nebulizzata ad alta pressione) come alternativa ecologica al CO₂.'},
-      {tipo:'sezione',titolo:'Primo intervento e Fireman Outfit',testo:'Gli estintori portatili sono il primo intervento di chiunque sia formato. CO₂ per fuochi elettrici, schiuma per combustibili, polvere su coperta. Gli idranti garantiscono che ogni punto del ponte sia raggiungibile con non più di due manichette da 15 m.\n\nIl Fireman\'s Outfit è l\'equipaggiamento completo del Fire Team avanzato: giacca ignifuga, casco, guanti e stivali isolanti, SCBA (autorespiratore, autonomia 30 min), lampada antideflagrante, ascia, corda da vita. A bordo devono esserci almeno 2 set in posizioni fisicamente separate.'},
-      {tipo:'keyword',voci:['Triangolo → combustibile + ossigeno + calore','CO₂ → 34% del volume, sgancio a due stadi','SCBA → autorespiratore, 30 min autonomia','Sprinkler → automatico, 68°C (rosso) / 93°C (verde)','2 Fireman Outfit → posizioni separate, obbligatorio']},
-    ],
-    slideScript:[
-      {slide:'Slide 10 — Antincendio',testo:'Il fuoco si basa sul triangolo combustibile-ossigeno-calore. I sistemi di rilevazione a bordo, collegati a un pannello centrale in plancia, identificano immediatamente zona e tipo di incendio.'},
-      {slide:'Slide 11 — Sistemi antincendio',testo:'Per spegnere si usano impianti fissi come il CO₂ per i locali macchine o gli sprinkler automatici sulle navi passeggeri. Il Fire Team interviene con il Fireman Outfit, equipaggiamento completo che include l\'autorespiratore SCBA.'},
-    ],
-  },
-  {
-    id:'gmdss',ico:'📡',titolo:'GMDSS — Comunicazioni di Emergenza',colore:'var(--gmdss)',
-    contenuto:[
-      {tipo:'intro',testo:'Il GMDSS (Global Maritime Distress and Safety System) è il sistema globale di comunicazione che ha rivoluzionato il soccorso marittimo dal 1988. Prima della sua introduzione, la segnalazione di un\'emergenza dipendeva dagli operatori radio in ascolto. Con il GMDSS, il segnale arriva automaticamente ai centri di soccorso ovunque nel mondo.'},
-      {tipo:'sezione',titolo:'Le aree operative A1–A4',testo:'Il GMDSS divide i mari in quattro aree in base alla copertura dei sistemi di comunicazione:\n\nA1: entro la portata VHF costiero (20-50 nm dalla costa)\nA2: entro la portata MF/DSC (~150-400 nm)\nA3: copertura satellite INMARSAT (tra 70°N e 70°S)\nA4: zone polari, fuori dalla copertura satellite (richiede HF)\n\nPiù una nave si allontana dalla costa, più strumenti deve avere per mantenere il contatto con il MRCC.'},
-      {tipo:'sezione',titolo:'Comunicazioni principali',testo:'VHF: canale 16 per emergenze vocali (procedura MAYDAY), canale 70 solo per DSC (Digital Selective Calling — allerta digitale automatica che trasmette MMSI e posizione GPS direttamente al MRCC). Portata 20-50 nm.\n\nMF/HF: per distanze maggiori. MF (2182 kHz) in area A2. HF (4-16 MHz) per oceano aperto, area A3/A4, portata mondiale via ionosfera.\n\nNAVTEX: riceve automaticamente avvisi nautici, meteorologici e comunicati SAR su 518 kHz. Portata ~400 nm. Non trasmette, riceve.\n\nINMARSAT: comunicazione bidirezionale via satellite in area A3. Permette allerta diretta al MRCC.'},
-      {tipo:'sezione',titolo:'EPIRB, SART e AIS SART',testo:'EPIRB (Emergency Position-Indicating Radio Beacon): trasmette su 406 MHz via satellite Cospas-Sarsat con identificativo MMSI e posizione GPS. Localizzazione con errore <100 m. Attivazione manuale o automatica idrostatica (1,5-4 m). Autonomia ≥ 48 ore. È il primo strumento che avvia la catena SAR.\n\nSART (Search and Rescue Transponder): transponder radar a 9 GHz che risponde al radar del soccorritore con 12 punti sul display. Portata ~5 nm da nave. Autonomia: 96h standby + 8h TX. Due unità obbligatorie per nave.\n\nAIS SART: trasmette su frequenze AIS, visibile su tutti i display ECDIS/AIS vicini come punto lampeggiante. Vantaggio chiave: non richiede radar X-band attivo sul soccorritore, più facile da rilevare in coordinamento con l\'OSC.'},
-      {tipo:'keyword',voci:['Ch.70 → solo DSC, allerta digitale automatica','Ch.16 → voce, procedura MAYDAY','EPIRB → 406 MHz, satellite, attivazione idrostatica','SART → radar 9 GHz, 12 punti sul display','AIS SART → più moderno, non serve radar X-band']},
-    ],
-    slideScript:[
-      {slide:'Slide 12 — GMDSS',testo:'Il GMDSS è il sistema globale che permette di inviare richieste di soccorso automaticamente. Divide i mari in quattro aree operative, A1-A4, ognuna con dotazioni di comunicazione crescenti man mano che ci si allontana dalla costa.'},
-      {slide:'Slide 13 — Dispositivi di soccorso',testo:'L\'EPIRB è il cuore del sistema: trasmette posizione e identità della nave via satellite. Il SART produce segnali visibili al radar, mentre l\'AIS SART è visibile su tutti i sistemi AIS senza bisogno di un radar attivo.'},
-    ],
-  },
-  {
-    id:'nav',ico:'🗺️',titolo:'Navigazione Sicura',colore:'var(--nav)',
-    contenuto:[
-      {tipo:'intro',testo:'La navigazione sicura è la prima linea di difesa: l\'obiettivo è evitare l\'emergenza prima che accada. I sistemi elettronici moderni danno all\'ufficiale di guardia strumenti potentissimi, ma non eliminano la responsabilità umana.'},
-      {tipo:'sezione',titolo:'AIS — Automatic Identification System',testo:'Trasmette ogni 2-10 secondi: MMSI, nome, tipo nave, posizione GPS, COG (rotta sul fondo), SOG (velocità sul fondo), destinazione, ETA, persone a bordo. Obbligatorio sulle navi ≥ 300 GT in navigazione internazionale. Il MRCC usa l\'AIS per monitorare le navi in una zona SAR.'},
-      {tipo:'sezione',titolo:'VDR — Voyage Data Recorder',testo:'La "scatola nera" della nave. Registra in ciclo continuo le ultime 12 ore: posizione, velocità, rotta, immagini radar, audio di plancia e VHF, ordini al timone, allarmi. La capsula protetta resiste a 6000 m di profondità e 1000°C per 1 ora. Strumento fondamentale nelle indagini post-incidente.'},
-      {tipo:'sezione',titolo:'ECDIS e Radar ARPA',testo:'ECDIS: carte nautiche elettroniche (ENC) integrate con GPS, AIS e radar sovrapposti. Allarmi automatici per UKC (spazio tra chiglia e fondo), deviazione di rotta, ostacoli. Obbligatorio su varie categorie di navi; richiede due unità e aggiornamento ENC settimanale.\n\nRadar ARPA: calcola automaticamente CPA (distanza minima prevista tra le navi) e TCPA (tempo al CPA) per ogni bersaglio radar. X-band a 9 GHz (20 nm, alta risoluzione) + S-band a 3 GHz (40 nm, meno attenuazione da pioggia). Navi >10.000 GT: entrambe le bande.'},
-      {tipo:'sezione',titolo:'BNWAS, GPS e cyber risk',testo:'BNWAS (Bridge Navigational Watch Alarm System): sistema anti-addormentamento. Se l\'ufficiale di guardia non interagisce entro 3-12 minuti, scatta un allarme progressivo: prima in plancia, poi in cabina del comandante, poi agli altri ufficiali. Obbligatorio sulle navi ≥ 150 GT dal 2011.\n\nCyber risk: AIS, ECDIS e GPS sono vulnerabili a spoofing (posizioni false) e jamming. Dal 2021 il cyber risk deve essere integrato nel SMS (ISM Code). Un attacco cyber può compromettere l\'intera catena di comando e comunicazione SAR.'},
-      {tipo:'keyword',voci:['AIS → trasmissione ogni 2-10 s, ≥ 300 GT','CPA → distanza minima, TCPA → tempo al CPA','VDR → 12 ore, 6000 m, 1000°C','BNWAS → 3-12 min, anti-addormentamento','Cyber risk → nel SMS dal 2021']},
-    ],
-    slideScript:[
-      {slide:'Slide 14 — Navigazione sicura',testo:'I sistemi di navigazione sono la prevenzione attiva degli incidenti. L\'AIS mostra tutte le navi vicine, il Radar ARPA calcola il rischio di collisione, l\'ECDIS integra tutto su carte digitali. Il VDR registra ogni dato per le eventuali indagini.'},
-    ],
-  },
-  {
-    id:'norme',ico:'📜',titolo:'Base Normativa',colore:'var(--gold)',
-    contenuto:[
-      {tipo:'intro',testo:'Le norme non sono un argomento separato: sono il fondamento di tutto. Ogni strumento, ogni procedura, ogni ruolo esiste perché una convenzione internazionale lo impone. Saperle collegare alle procedure è ciò che distingue una risposta da 6 da una da 9.'},
-      {tipo:'sezione',titolo:'Le convenzioni principali',testo:'SOLAS 1974 (vers. 2024) — Safety Of Life At Sea\nLa convenzione madre. Cap. III: mezzi di salvataggio e drills. Cap. II-2: antincendio. Cap. IV: GMDSS. Cap. V: navigazione sicura. Ogni regola dei moduli che hai studiato cita SOLAS.\n\nSAR Convention 1979 — Search and Rescue\nStabilisce le SRR, i centri MRCC/MRSC, il concetto di "place of safety". Obbliga gli Stati a organizzare il soccorso.\n\nISM Code 2021 — International Safety Management Code\nImpone il SMS su ogni nave. Introduce DOC (per la compagnia) e SMC (per la nave). Dal 2021 include cyber risk.\n\nSTCW 1978 — Standards of Training, Certification and Watchkeeping\nFormazione minima obbligatoria per i marittimi. Emendamenti Manila 2010. Cap. VI: Basic Safety Training (giubbotti, antincendio, pronto soccorso, sopravvivenza).\n\nLSA Code — Life-Saving Appliances\nSpecifiche tecniche per ogni mezzo di salvataggio (giubbotti, mute, scialuppe, zattere). Complementa SOLAS III.\n\nFSS Code — Fire Safety Systems Code\nSpecifiche tecniche per tutti i sistemi antincendio. Complementa SOLAS II-2.\n\nCOLREG 1972 — Collision Regulations\nRegole della strada in mare: precedenze, fanali, separazioni del traffico. Usato con radar ARPA e AIS.\n\nISPS Code 2002 — International Ship and Port Facility Security Code\nSicurezza da minacce esterne. Introduce tre livelli di sicurezza. Richiede il Ship Security Plan (SSP).'},
-      {tipo:'keyword',voci:['SOLAS → convenzione madre, tutti i capitoli','ISM Code → SMS, DOC, SMC, cyber risk 2021','STCW → formazione marittimi, Manila 2010','LSA Code + SOLAS III → mezzi di salvataggio','FSS Code + SOLAS II-2 → antincendio','SAR Convention → SRR, MRCC, place of safety','COLREG → prevenzione collisioni in mare']},
-    ],
-    slideScript:[
-      {slide:'Slide 15 — Normative',testo:'Tutto ciò che abbiamo visto esiste perché una norma lo impone. Le convenzioni principali sono SOLAS, che è la base di tutto, l\'ISM Code per l\'organizzazione di sicurezza, STCW per la formazione, LSA Code e FSS Code per i mezzi tecnici, SAR Convention per il soccorso e COLREG per la navigazione.'},
-    ],
-  },
-  {
-    id:'presentazione',ico:'🎤',titolo:'Come presentare il PowerPoint',colore:'var(--gold)',
-    contenuto:[
-      {tipo:'intro',testo:'La presentazione non è un\'interrogazione mascherata. È la tua occasione di guidare il professore attraverso un ragionamento. Ogni slide è un passo logico, non un elenco di cose da dire. Parla come se spiegassi a qualcuno che non conosce l\'argomento, ma usa i termini tecnici giusti.'},
-      {tipo:'sezione',titolo:'Regola d\'oro: non leggere',testo:'Il prof ha già letto la slide. Quello che vuole sentire è se hai capito. Guarda il pubblico, usa le slide come traccia visiva, non come copione. Se ti perdi, non andare nel panico: riprendi dal titolo della slide.'},
-      {tipo:'sezione',titolo:'Collegamento tra le slide (fondamentale)',testo:'I collegamenti fanno la differenza tra chi "sa le cose" e chi "ha capito". Esempi da usare:\n\n"Abbiamo visto come il MRCC coordina dall\'esterno — ora vediamo chi coordina a bordo."\n"La Muster List assegna i ruoli, ma servono anche gli strumenti — passiamo ai mezzi di salvataggio."\n"Dopo la prevenzione, vediamo cosa succede quando l\'incidente già avviene."\n\nUn collegamento bene formulato vale come tre nozioni imparate a memoria.'},
-      {tipo:'sezione',titolo:'Discorso slide per slide (16 slide)',testo:'Slide 1 — Titolo:\n"Parlerò dell\'organizzazione delle emergenze in mare: come si previene, come si gestisce e come si coordina il soccorso."\n\nSlide 2 — Introduzione:\n"Non si tratta solo della nave: è un sistema integrato che unisce la nave, le comunicazioni e le autorità di soccorso a terra, tutto per salvare vite nel minor tempo possibile."\n\nSlide 3 — Filo logico (prevenzione → soccorso → sopravvivenza):\n"Tutto segue una sequenza: prima si previene, poi si gestisce l\'emergenza a bordo, si lancia il segnale di soccorso, arrivano i soccorsi e infine si garantisce la sopravvivenza."\n\nSlide 4 — Sistema SAR:\n"Il sistema SAR divide il mondo in aree chiamate SRR. Ogni area è controllata da un MRCC, che in Italia è l\'MRCC di Roma, attivo 24 ore su 24."\n\nSlide 5 — MRCC e OSC:\n"Il MRCC coordina tutto da terra. Sul posto viene nominato un OSC, che è una nave o un aeromobile: il MRCC decide, l\'OSC agisce."\n\nSlide 6 — Organizzazione a bordo:\n"A bordo il comandante ha responsabilità totale, anche se delega. La catena di comando permette di agire rapidamente senza caos."\n\nSlide 7 — Emergency Team:\n"L\'equipaggio è diviso in squadre dell\'ERT con ruoli pre-assegnati: Fire Team, Rescue Team, Medical Team e Damage Control Team. Ognuno sa già cosa fare prima che l\'emergenza accada."\n\nSlide 8 — Muster List e SMS:\n"La Muster List assegna ogni persona a una stazione e un ruolo. Il SMS è il manuale di sicurezza che contiene tutte le procedure. Entrambi sono obbligatori per legge."\n\nSlide 9 — Mezzi di salvataggio:\n"I mezzi LSA permettono la sopravvivenza dopo l\'abbandono nave: individuali come giubbotti e mute, collettivi come scialuppe e zattere. Ogni mezzo ha caratteristiche tecniche precise del LSA Code."\n\nSlide 10 — Sistemi di attivazione:\n"Il Davit cala le scialuppe in modo controllato, mentre l\'HRU attiva automaticamente le zattere se la nave affonda sotto i 4 metri. L\'HRU è critico: se non funziona, la zattera si perde."\n\nSlide 11 — Antincendio — rilevazione:\n"L\'incendio nasce dall\'unione di combustibile, ossigeno e calore. I rilevatori di bordo — fumo, calore, gas — sono tutti collegati al pannello centrale in plancia."\n\nSlide 12 — Antincendio — spegnimento:\n"Per spegnere si usano sistemi fissi come CO₂ nei locali macchine e sprinkler automatici sulle navi passeggeri. Il Fire Team interviene con il Fireman Outfit completo di autorespiratore."\n\nSlide 13 — GMDSS:\n"Il GMDSS permette di inviare segnali di soccorso ovunque. Divide i mari in 4 aree operative: più siamo lontani dalla costa, più strumenti servono."\n\nSlide 14 — Dispositivi di soccorso:\n"L\'EPIRB manda la posizione via satellite e avvia automaticamente la catena SAR. Il SART produce segnali radar visibili al soccorritore. L\'AIS SART è visibile su tutti i sistemi AIS senza bisogno di radar attivo."\n\nSlide 15 — Navigazione sicura:\n"AIS, radar ARPA ed ECDIS aiutano a prevenire collisioni. Il VDR registra tutto per le indagini. La cyber security è un rischio reale: dal 2021 è nel Safety Management System."\n\nSlide 16 — Conclusione:\n"In conclusione, l\'organizzazione delle emergenze in mare è un sistema integrato. Dalla prevenzione al soccorso internazionale, ogni elemento dipende dagli altri. L\'obiettivo è sempre uno solo: salvare vite umane."'},
-      {tipo:'keyword',voci:['Non leggere → guarda il pubblico','Collega le slide → spiega il perché','Termini tecnici → usali sempre (MRCC, SMS, LSA...)','Frase di apertura → definisci l\'argomento subito','Frase di chiusura → torna sempre all\'obiettivo: salvare vite']},
-    ],
-    slideScript:[],
-  },
+  {id:'sar',ico:'SAR',titolo:'Sistema SAR — Search and Rescue',
+   contenuto:[
+    {tipo:'intro',testo:'Il sistema SAR è l\'organizzazione internazionale che garantisce il soccorso in mare ovunque. Nasce dalla SAR Convention 1979 (emendamenti 2004). Non dipende da un singolo Stato: è una rete di centri, navi e aerei con gli stessi protocolli globali.'},
+    {tipo:'sezione',titolo:'SRR — Search and Rescue Region',testo:'Il globo è diviso in SRR assegnate a Stati firmatari della SAR Convention. Ogni SRR ha un MRCC responsabile. La SRR NON coincide con le acque territoriali: può estendersi in alto mare. Nessuna zona scoperta. L\'Italia ha una delle SRR più estese del Mediterraneo.'},
+    {tipo:'sezione',titolo:'MRCC e MRSC',testo:'MRCC = Maritime Rescue Coordination Centre. Centro principale: riceve allerte, valuta emergenza, decide strategia, invia soccorsi, coordina tutte le unità. In Italia: MRCC Roma (Guardia Costiera), 24h/365g, numero 1530.\nMRSC = Maritime Rescue Sub-Centre. Centri secondari dipendenti dal MRCC. In Italia: Genova, Napoli, Palermo, Catania.\nCopera con: RCC Roma (Aeronautica Militare) per SAR aereo, SUEM 118 per coordinamento medico.'},
+    {tipo:'sezione',titolo:'OSC — On Scene Coordinator',testo:'Il MRCC non può agire fisicamente sul posto: nomina un OSC tra le navi o aeromobili già in zona. Compiti: comunicare con il MRCC, assegnare settori di ricerca, gestire le comunicazioni tra le unità in scena, coordinare recupero.\nDistinzione fondamentale: MRCC decide la strategia da terra → OSC la esegue sul campo. L\'OSC non comanda la nave in pericolo.\nACO (Aircraft Coordination Officer): designato quando partecipano aeromobili, gestisce la componente aerea. Rif: IAMSAR Vol.II.'},
+    {tipo:'sezione',titolo:'Fasi di allerta SAR',testo:'INCERFA (uncertainty): segnale dubbio o nave che non risponde come previsto.\nALERFA (alert): evidenza di difficoltà.\nDETRESFA (distress): pericolo confermato, si lanciano le operazioni SAR complete.\nObiettivo finale: portare i naufraghi in un place of safety, luogo sicuro a terra con cure mediche, cibo, riparo, assistenza consolare. Non basta trarre le persone dall\'acqua.'},
+    {tipo:'keyword',voci:['SRR → area geografica, non coincide con acque territoriali','MRCC → riceve allerte, decide, coordina da terra (Roma 1530)','MRSC → secondari: Genova, Napoli, Palermo, Catania','OSC → esegue sul posto, non comanda la nave in pericolo','ACO → coordina gli aeromobili SAR','INCERFA → ALERFA → DETRESFA','Place of safety → destinazione finale con cure e assistenza','Norma: SAR Convention 1979 + IAMSAR Manual IMO/ICAO']},
+   ],slideScript:[]},
+  {id:'bordo',ico:'CMD',titolo:'Organizzazione a Bordo',
+   contenuto:[
+    {tipo:'intro',testo:'A bordo ogni persona ha un ruolo fisso, definito da documenti obbligatori verificati da audit internazionali. L\'organizzazione è gerarchica. Funziona solo se ogni membro conosce il proprio ruolo PRIMA che l\'emergenza accada. Quando l\'incendio scoppia non c\'è tempo per decidere chi fa cosa.'},
+    {tipo:'sezione',titolo:'Comandante — Responsabilità assoluta',testo:'Il Master ha responsabilità totale sulla nave e su chiunque sia a bordo, sempre. In emergenza: valuta la situazione, dichiara il Mayday, attiva il Muster, mantiene il contatto con il MRCC, decide se e quando abbandonare la nave.\nPrincipio chiave: non perde mai la responsabilità nemmeno delegando. Se delega il Fire Team al Chief Officer e qualcosa va storto, risponde lui.\nSOLAS V R.33 Duty to Render Assistance: obbligo legale di deviare dalla rotta e soccorrere chiunque in pericolo, salvo rischio per propria nave o equipaggio. Non è facoltativo.'},
+    {tipo:'sezione',titolo:'Catena di comando',testo:'Master → Chief Officer (spesso anche Safety Officer: coordina ERT, gestisce Muster List, supervisiona drill) → Chief Engineer (locali macchine, Damage Control) → Ufficiali coperta e macchina → Equipaggio.\nGerarchia serve a: evitare confusione in emergenza, garantire che ogni ordine abbia una provenienza chiara, permettere azione rapida.'},
+    {tipo:'sezione',titolo:'Emergency Response Team ERT',testo:'Fire Team: affronta incendi con Fireman\'s Outfit completo. Non agisce autonomamente: riceve ordine dal Comandante tramite Chief Officer.\nRescue Team: abbandono nave (calata scialuppe, distribuzione giubbotti, conteggio persone), recupero uomo in mare MOB, imbarco naufraghi da Fast Rescue Boat.\nMedical Team: primo soccorso, gestione feriti, telemedicina tramite GMDSS.\nDamage Control Team: allagamenti, falle, danni strutturali, pompe di sentina, paratie stagne.\nTutti i ruoli pre-assegnati nella Muster List, non si decide durante l\'emergenza.'},
+    {tipo:'sezione',titolo:'Muster List (Piano di Ruolo)',testo:'Assegna a ogni membro: Muster Station (punto di raccolta), compiti in ogni tipo di emergenza, compiti in abbandono nave.\nObblighi SOLAS III R.37 + MSC.1/Circ.1532 Rev.1 del 2022: aggiornata ad ogni cambio equipaggio, affissa in posizioni visibili, nelle lingue parlate a bordo. La Muster Card individuale è esposta in cabina con simboli IMO.\nSenza Muster List aggiornata: l\'organizzazione collassa in emergenza.'},
+    {tipo:'sezione',titolo:'SMS e ISM Code',testo:'SMS = Safety Management System: il manuale operativo di sicurezza, imposto dall\'ISM Code. Contiene: procedure per ogni tipo di emergenza, responsabilità di ogni figura, protocolli di comunicazione, manutenzione preventiva, piano di addestramento.\nDal 2021: deve includere il cyber risk (MSC-FAL.1/Circ.3 Rev.2).\nVerifica: audit sulla compagnia → DOC (Document of Compliance, 5 anni, rilasciato dal flag State). Audit sulla nave → SMC (Safety Management Certificate, 5 anni). DOC scaduto = tutta la flotta bloccata.\nDPA (Designated Person Ashore): collegamento obbligatorio nave-management a terra per la sicurezza. Previsto dall\'ISM Code.'},
+    {tipo:'sezione',titolo:'Drills obbligatori',testo:'SOLAS III R.19:\nAbbandono nave: mensile su cargo, settimanale su passeggeri. Ogni 3 mesi: ammainamento reale scialuppa in acqua.\nAntincendio: mensile.\nMan Overboard: ogni 3 mesi.\nOgni drill: registrato nel log di bordo con data, tipo, esito, criticità rilevate.\nTabletop Exercise TTX: esercitazione da tavolo raccomandata da IAMSAR, scenario simulato senza manovre fisiche.'},
+    {tipo:'keyword',voci:['Master → responsabilità totale, mai delegabile','SOLAS V R.33 → Duty to Render Assistance (obbligatorio)','ERT → 4 squadre pre-assegnate: Fire / Rescue / Medical / Damage Control','Muster List → aggiornata ogni cambio equipaggio, multilingue','SMS → obbligatorio, cyber risk dal 2021','DOC → compagnia 5 anni / SMC → nave 5 anni','DPA → collegamento nave-terra per sicurezza','Drill cargo: abbandono mensile, antincendio mensile, MOB ogni 3 mesi']},
+   ],slideScript:[]},
+  {id:'lsa',ico:'LSA',titolo:'Mezzi di Salvataggio (LSA)',
+   contenuto:[
+    {tipo:'intro',testo:'I LSA (Life-Saving Appliances) entrano in gioco quando la nave non può più proteggere le persone. Ultima linea di difesa prima dei soccorsi. Regolati dal LSA Code (MSC.48(66)) e SOLAS Cap. III. Il Rescue Team e il Damage Control Team sono responsabili del varo e della distribuzione.'},
+    {tipo:'sezione',titolo:'Giubbotto di salvataggio',testo:'Tipo I: 150 Newton, mare aperto, cargo e passeggeri. Mantiene a galla anche persona incosciente con la testa fuori dall\'acqua, girandola dalla posizione facciadown entro 5 secondi. Indossaggio entro 60 secondi. 1 per persona + 5% di riserva.\nTipo II: 100 Newton, acque protette. Non garantisce raddrizzamento automatico.\nDotazioni: luce lampeggiante almeno 8 ore, fischietto, strisce retroriflettenti.'},
+    {tipo:'sezione',titolo:'Muta di immersione e TPA',testo:'Muta: protegge dall\'ipotermia (causa principale di morte dopo naufragio). Mantiene almeno 2 gradi corporei in acqua a 0 gradi per 6 ore. Neoprene o impermeabile, colore rosso/arancio. Indossaggio entro 2 minuti senza assistenza, anche con guanti e giubbotto indossati. Requisito di test LSA Code, non obiettivo teorico.\nTPA (Thermal Protective Aid): borsa isolante, non è una muta. Riduce dispersione termica per convezione e evaporazione. Copertura almeno 80% del corpo. Obbligatoria nelle zattere. Distribuita dall\'ERT.'},
+    {tipo:'sezione',titolo:'Anello di salvataggio e MOB',testo:'Peso almeno 2,5 kg, galleggiabilità almeno 14,5 kg. Su entrambe le murate. Ogni 4 unità: 1 con luce automatica + 1 con sagola almeno 30 m.\nProcedura MOB (Man OverBoard): lancio anello → segnalazione posizione → manovra di recupero (Williamson o Anderson) → ammainamento Fast Rescue Boat se necessario.'},
+    {tipo:'sezione',titolo:'Scialuppa chiusa e zattera gonfiabile',testo:'Scialuppa chiusa: 100% persone su ogni lato su cargo, 125% totale su passeggeri. Motore diesel avviante in 2 minuti anche completamente allagata. Autoraddrizzante. Dotazione: 3 litri acqua per persona, viveri, kit medico, razzi, bussola, specchio. Responsabile del varo: Rescue Team (Muster List).\nZattera SOLAS: tipo A mare aperto, tipo B entro 20 nm. Gonfiaggio CO2 automatico. 6-25 persone. Revisione ogni 12 mesi. Attivazione manuale o tramite HRU.\nFast Rescue Boat: almeno 6 nodi per 4 ore, minimo 5 persone. Obbligatoria su passeggeri.'},
+    {tipo:'sezione',titolo:'Davit e HRU',testo:'Davit: free-fall (caduta libera da poppa) o gravity (laterale). Operabile da 1 persona. Prove carico 150% ogni 5 anni.\nHRU (Hydrostatic Release Unit): sgancia la zattera a 1,5-4 m profondità. Scadenza ogni 2 anni. Sequenza: nave affonda → pressione a 1,5 m attiva HRU → zattera si libera → peso nave tira cima → cima apre valvola CO2 → zattera si gonfia. Se HRU non funziona: zattera affonda con la nave. Controllo più stringente nelle ispezioni PSC (Port State Control).'},
+    {tipo:'keyword',voci:['Giubbotto Tipo I → 150 N, raddrizzamento automatico, entro 60 s','Tipo II → 100 N, acque protette','Muta → 2 gradi per 6 ore in acqua 0 gradi, indossaggio entro 2 min','TPA → 80% corpo, nelle zattere, non è una muta','Scialuppa → motore diesel, autoraddrizzante, 3 litri acqua per persona','Zattera A → mare aperto / B → entro 20 nm, revisione 12 mesi','HRU → 1,5-4 m, scadenza 2 anni, controllo PSC critico','Davit → 1 persona, prove carico 150% ogni 5 anni']},
+   ],slideScript:[]},
+  {id:'fire',ico:'FIRE',titolo:'Sistemi Antincendio',
+   contenuto:[
+    {tipo:'intro',testo:'Incendio = una delle emergenze più pericolose a bordo perché si propaga rapidamente in ambienti chiusi, produce fumo tossico che incapacita prima delle fiamme, e non c\'è via di fuga in mare aperto. Norma: SOLAS II-2 + FSS Code MSC.98(73).'},
+    {tipo:'sezione',titolo:'Triangolo del fuoco e classi incendio',testo:'Fuoco = combustibile + ossigeno + calore. Togli uno = si spegne.\nCO2: rimuove ossigeno. Sprinkler/acqua: abbassa calore. Compartimentazione: isola combustibile. Schiuma: rimuove ossigeno E abbassa calore.\nClassi: A = solidi (legno, carta), B = liquidi (gasolio, oli), C = gas, D = metalli, E = impianti elettrici. A bordo B e E sono le classi più frequenti.'},
+    {tipo:'sezione',titolo:'Rilevazione e pannello centrale',testo:'Ionizzazione: fuochi secchi e veloci, particelle di combustione.\nOttico: fuochi lenti con molto fumo, il più diffuso a bordo.\nTermico differenziale: cucine e locali macchine (reagisce alla velocità di aumento temperatura, non al fumo, evita falsi allarmi).\nRilevatori gas: obbligatori in locali batterie, depositi vernici, pump room. Soglia 10% LEL gas infiammabili, 50 ppm CO.\nPannello centrale in plancia, presidiato 24h: riceve allarmi, indica zona, aziona automaticamente porte tagliafuoco (A-class e B-class divisions), chiude ventilazione, suona allarme generale, allerta Safety Officer che attiva Fire Team.'},
+    {tipo:'sezione',titolo:'Impianto CO2 e sprinkler',testo:'CO2: locali macchine e stive. Concentrazione almeno 34% del volume. Due stadi obbligatori (SOLAS II-2 R.10): pre-allarme acustico e visivo almeno 20 secondi per evacuare → sgancio. Dopo sgancio: nessuno entra senza SCBA. Ordine di sgancio: Comandante, non autonomo.\nSprinkler (SOLAS II-2 R.12): obbligatorio su passeggeri e navi ro-ro. Testine a bulbo di vetro: rosso 68 gradi, verde 93 gradi. Ogni testina copre circa 12 m2. Automatico. Non si usa in locali macchine.\nHi-Fog acqua nebulizzata sopra 100 bar: alternativa ecologica al CO2, meno danni ai macchinari, nelle nuove costruzioni.\nSchiuma: classe B liquidi, coperta tanker, pump room.'},
+    {tipo:'sezione',titolo:"Mezzi manuali e Fireman's Outfit",testo:'Estintori: CO2 per fuochi elettrici/B, schiuma per combustibili/B, polvere su coperta. Ogni 7,5 m nei corridoi. Revisione annuale. Primo intervento: qualsiasi membro formato.\nIdranti: ogni punto del ponte raggiungibile con al massimo 2 manichette da 15 m. Pressione min 2,7 bar. Pompa principale + pompa emergenza in locale separato.\nFireman\'s Outfit (SOLAS II-2 R.10): minimo 2 set in posizioni fisicamente separate. Componenti: giacca ignifuga EN 469, pantaloni, stivali isolanti, guanti, casco, SCBA 30 min autonomia, lampada antideflagrante, ascia, corda da vita. Fire Team avanzato opera sempre in coppia (buddy system).'},
+    {tipo:'keyword',voci:['Triangolo: combustibile + ossigeno + calore','CO2: 34%, due stadi (pre-allarme 20s poi sgancio), solo su ordine Master','SCBA: 30 min, obbligatorio dopo sgancio CO2','Sprinkler: 68 gradi rosso / 93 gradi verde, automatico','2 Fireman\'s Outfit: posizioni separate (SOLAS II-2 R.10)','Termico differenziale: cucine e locali macchine','Schiuma: classe B / Hi-Fog: alternativa CO2 locali macchine','LEL: 10% = soglia allarme gas infiammabili']},
+   ],slideScript:[]},
+  {id:'gmdss',ico:'GMDSS',titolo:'GMDSS — Comunicazioni di Emergenza',
+   contenuto:[
+    {tipo:'intro',testo:'GMDSS = Global Maritime Distress and Safety System. Sostituisce il codice Morse dal 1999. Prima: serviva un operatore radio in ascolto al momento giusto. Con il GMDSS: segnali digitali e satellitari arrivano automaticamente al MRCC. Base normativa: SOLAS Cap. IV.'},
+    {tipo:'sezione',titolo:'Aree operative A1-A4',testo:'A1: entro VHF costiero circa 20-50 nm. Dotazione minima: VHF con DSC + EPIRB.\nA2: entro MF DSC circa 150-400 nm. Aggiunge: MF con DSC + NAVTEX.\nA3: satellite INMARSAT tra 70 gradi Nord e 70 gradi Sud. Aggiunge: INMARSAT o HF con DSC.\nA4: zone polari oltre 70 gradi, fuori copertura INMARSAT. Aggiunge: HF con DSC, portata mondiale via ionosfera.\nPiù ci si allontana dalla costa: più strumenti obbligatori per raggiungere il MRCC.'},
+    {tipo:'sezione',titolo:'Le 9 funzioni del GMDSS (SOLAS IV R.4)',testo:'1. Allerta soccorso nave verso terra\n2. Terra verso nave\n3. Nave verso nave\n4. Coordinamento SAR (cuore del sistema)\n5. Sicurezza nave verso nave (avvisi di pericolo)\n6. Ricezione MSI (Maritime Safety Information via NAVTEX e SafetyNET)\n7. Comunicazioni routine\n8. Porto verso nave\n9. Ponte verso ponte\nFunzioni 1 e 4 = cuore del sistema.'},
+    {tipo:'sezione',titolo:'VHF, MF/HF e NAVTEX',testo:'VHF Ch.70: SOLO DSC (Digital Selective Calling). Trasmissione digitale automatica: MMSI + posizione GPS + tipo emergenza → MRCC. Nessuna voce. Non si usa per altro.\nVHF Ch.16: voce. Procedura MAYDAY = Mayday Mayday Mayday + nome nave + posizione + natura emergenza + persone a bordo + qualsiasi informazione utile. Ascolto obbligatorio 24h. 3 VHF portatili IPX7 obbligatori sulle scialuppe.\nMF 2182 kHz: frequenza internazionale di guardia, area A2, circa 150-400 nm.\nHF 4-16 MHz: portata mondiale via ionosfera, area A3/A4.\nNAVTEX 518 kHz: solo ricezione automatica. Distribuisce MSI: avvisi nautici, meteo, comunicati SAR in corso. Portata circa 400 nm. Il MRCC usa NAVTEX per avvisare tutte le navi in zona di emergenza attiva.'},
+    {tipo:'sezione',titolo:'EPIRB — Primo anello della catena SAR',testo:'Trasmette su 406 MHz (i vecchi 121,5 MHz non sono più riconosciuti come segnale di soccorso dal 2009). Via satellite Cospas-Sarsat. Include GPS: localizzazione sotto i 100 m. Autonomia almeno 48 ore.\nAttivazione: manuale (Master o ERT) o automatica idrostatica (1,5-4 m profondità, come HRU).\nCodice MMSI univoco a 9 cifre registrato nel database IMO: quando il segnale arriva al MRCC, il centro sa subito nome nave, armatore, tipo nave, persone a bordo, porto di partenza. EPIRB con MMSI non registrato = allarme anonimo, risposta più lenta.\nSequenza: EPIRB → satellite Cospas-Sarsat → LUT Local User Terminal → MRCC → operazioni SAR.'},
+    {tipo:'sezione',titolo:'SART e AIS SART',testo:'SART: banda X radar 9 GHz. Quando il radar del soccorritore lo illumina risponde con 12 punti sul display che convergono verso la persona o imbarcazione. Portata circa 5 nm da nave, sopra 30 nm da aereo. Autonomia: 96h standby + 8h trasmissione. 2 unità obbligatorie assegnate a scialuppe specifiche nella Muster List.\nAIS SART: trasmette su frequenze AIS 161.975 MHz e 162.025 MHz. Visibile come punto lampeggiante su TUTTI i display AIS/ECDIS delle navi vicine. Vantaggio: non richiede radar X-band attivo. Fondamentale nelle operazioni con molte unità coordinate dall\'OSC.'},
+    {tipo:'keyword',voci:['Ch.70 → solo DSC, trasmette MMSI + GPS automaticamente','Ch.16 → voce MAYDAY, ascolto obbligatorio 24h','EPIRB → 406 MHz, Cospas-Sarsat, MMSI univoco, 48h, attivazione idrostatica','SART → 9 GHz, 12 punti radar, 5 nm da nave','AIS SART → frequenze AIS, non serve radar X-band','A1 VHF / A2 MF / A3 satellite / A4 HF','NAVTEX → solo ricezione, 518 kHz, MSI e SAR in corso','121,5 MHz → non più riconosciuto dal 2009']},
+   ],slideScript:[]},
+  {id:'nav',ico:'NAV',titolo:'Navigazione Sicura',
+   contenuto:[
+    {tipo:'intro',testo:'La navigazione sicura è la prevenzione attiva: evitare l\'emergenza prima che accada. I sistemi elettronici danno all\'ufficiale di guardia strumenti potenti, ma non eliminano la responsabilità umana. Norma: SOLAS V R.19, COLREG 1972, ISM Code (cyber risk).'},
+    {tipo:'sezione',titolo:'AIS — Automatic Identification System',testo:'Trasmette ogni 2-10 secondi (più frequente ad alta velocità): MMSI, nome, tipo nave, posizione GPS, COG (Course Over Ground, rotta effettiva sul fondo), SOG (Speed Over Ground, velocità effettiva), destinazione, ETA, persone a bordo.\nObbligatorio: navi almeno 300 GT internazionale, almeno 500 GT altro, passeggeri qualsiasi dimensione.\nUso SAR: il MRCC usa l\'AIS per monitorare navi in zona SAR e identificare le più vicine all\'incidente.\nLimite: AIS spoofing (trasmissione di dati falsi) documentato.'},
+    {tipo:'sezione',titolo:'VDR — Voyage Data Recorder',testo:'Scatola nera della nave. Registra in ciclo continuo le ultime 12 ore: posizione GPS, velocità, rotta, immagini display radar, audio plancia (microfoni fissi), audio VHF, ordini al timone, allarmi di bordo.\nCapsula protettiva: resiste a 6000 m di profondità, 1000 gradi per 1 ora, crash test. Ha rilevatore di posizione per il recupero.\nUso investigativo: dopo un incidente il VDR è lo strumento principale. L\'audio della plancia rivela le conversazioni degli ultimi minuti.\nS-VDR = versione semplificata per navi più piccole.'},
+    {tipo:'sezione',titolo:'ECDIS e Radar ARPA',testo:'ECDIS: integra su un display ENC (carte nautiche elettroniche ufficiali) + GPS + AIS + radar sovrapposti. Allarmi automatici: UKC (Under Keel Clearance, spazio chiglia/fondo), cross track error, ostacoli, profondità. Obbligatorio: passeggeri almeno 500 GT, cargo almeno 10000 GT, tanker almeno 3000 GT. 2 unità indipendenti + aggiornamento ENC settimanale.\nRadar ARPA: calcola automaticamente CPA (Closest Point of Approach, distanza minima prevista) e TCPA (Time to CPA, tempo a quel punto) per ogni bersaglio. X-band 9 GHz (20 nm, alta risoluzione) + S-band 3 GHz (40 nm, meno attenuazione da pioggia). Navi sopra 10000 GT: entrambe le bande.'},
+    {tipo:'sezione',titolo:'BNWAS, GPS e cyber risk',testo:'BNWAS (Bridge Navigational Watch Alarm System): anti-addormentamento. Se l\'ufficiale di guardia non interagisce entro 3-12 min scatta allarme progressivo: plancia → cabina Comandante → altri ufficiali. Obbligatorio su navi almeno 150 GT dal 2011.\nGPS spoofing: aree documentate = Mediterraneo orientale (Libano/Siria), Mar Nero, Golfo Persico. L\'ECDIS riceve posizioni false → mostra la nave nel posto sbagliato → rischio collisioni e incagli.\nCyber risk nel SMS: dal 1 gennaio 2021 (ISM Code + MSC-FAL.1/Circ.3 Rev.2) ogni SMS deve includere valutazione e gestione del cyber risk. Sistemi a rischio: ECDIS, AIS, GPS, GMDSS, controllo macchine.'},
+    {tipo:'keyword',voci:['AIS → 2-10 s, MMSI + posizione + COG + SOG + ETA','CPA → distanza minima prevista / TCPA → tempo a quel punto','VDR → 12 ore ciclo, 6000 m e 1000 gradi','ECDIS → ENC + GPS + AIS + radar, 2 unità, ENC settimanale','BNWAS → 3-12 min, 3 livelli, almeno 150 GT dal 2011','GPS spoofing → Mediterraneo est, Mar Nero, Golfo Persico','Cyber risk → nel SMS dal 2021 obbligatorio','COLREG 1972 → regole della strada in mare (usate con ARPA)']},
+   ],slideScript:[]},
+  {id:'norme',ico:'LEX',titolo:'Base Normativa Completa',
+   contenuto:[
+    {tipo:'intro',testo:'Le norme non sono un argomento separato: sono il perché di ogni procedura. Non limitarti a elencarle: collega ogni norma a ciò che impone. Questo è ciò che distingue una risposta da 6 da una da 9.'},
+    {tipo:'sezione',titolo:'SOLAS 1974 — La madre di tutto',testo:'Safety Of Life At Sea. Prima versione: 1914, dopo il Titanic (aprile 1912, circa 1500 morti). Versione attuale: 1974, in vigore dal 1980, aggiornata continuamente con il meccanismo del tacito accordo (emendamenti entrano in vigore automaticamente entro una data).\nCap. II-2: protezione antincendio (rilevatori, compartimentazione, CO2, sprinkler, Fireman\'s Outfit).\nCap. III: mezzi di salvataggio (giubbotti, mute, scialuppe, zattere, davit, HRU, drills).\nCap. IV: GMDSS (VHF, MF, HF, EPIRB, SART, NAVTEX).\nCap. V: navigazione sicura (AIS, VDR, ECDIS, ARPA, BNWAS).'},
+    {tipo:'sezione',titolo:'ISM Code 2021',testo:'International Safety Management Code. Impone il SMS su ogni nave. Non dice solo installa questo strumento, ma gestisci la sicurezza come sistema.\nObblighi: SMS approvato dal flag State, DPA designato, procedure per ogni emergenza, segnalazione e analisi degli incidenti.\nDal 2021: cyber risk nel SMS (MSC-FAL.1/Circ.3 Rev.2).\nVerifica: DOC (compagnia, 5 anni) + SMC (nave, 5 anni). DOC scaduto = flotta bloccata.'},
+    {tipo:'sezione',titolo:'Altre convenzioni fondamentali',testo:'SAR Convention 1979 (emend. 2004): SRR, MRCC/MRSC, place of safety, obbligo cooperazione internazionale.\nSTCW 1978 (Manila 2010): Standards of Training, Certification and Watchkeeping. Basic Safety Training obbligatorio per tutti i marittimi (Cap. VI): giubbotti, antincendio base, pronto soccorso, sopravvivenza.\nLSA Code (MSC.48(66)): specifiche tecniche mezzi di salvataggio. Complementa SOLAS III.\nFSS Code (MSC.98(73)): specifiche tecniche sistemi antincendio. Complementa SOLAS II-2.\nCOLREG 1972 (emend. 2007): regole della strada in mare, precedenze, fanali, separazioni traffico. Usato con ARPA e AIS.\nISPS Code 2002 (SOLAS XI-2): sicurezza da minacce esterne. 3 livelli di sicurezza. SSP gestito dall\'SSO. Coordinamento con PFSO in porto.'},
+    {tipo:'sezione',titolo:'Come collegare le norme alle procedure',testo:'Il drill mensile di abbandono nave su cargo esiste perché SOLAS III R.19 lo impone.\nIl CO2 deve avere il pre-allarme da 20 secondi perché SOLAS II-2 R.10 lo richiede.\nL\'HRU si sostituisce ogni 2 anni perché il LSA Code lo prescrive.\nIl cyber risk è nel SMS dal 2021 perché l\'ISM Code è stato aggiornato con MSC-FAL.1/Circ.3 Rev.2.\nL\'EPIRB trasmette a 406 MHz perché il 121,5 MHz non è più riconosciuto come segnale di soccorso dal 2009.\nQuesti collegamenti dimostrano che le norme non sono cose da recitare a memoria, sono il perché di ogni procedura.'},
+    {tipo:'keyword',voci:['SOLAS 1974 → madre di tutto, capp. II-2/III/IV/V, Titanic 1912 poi SOLAS 1914','ISM Code 2021 → SMS, DOC, SMC, DPA, cyber risk','SAR Convention 1979 → SRR, MRCC, place of safety','STCW Manila 2010 → BST obbligatorio per tutti','LSA Code MSC.48(66) → specifiche tecniche mezzi salvataggio','FSS Code MSC.98(73) → specifiche tecniche antincendio','COLREG 1972 → regole della strada, CPA/TCPA','ISPS Code 2002 → sicurezza esterna, SSP, 3 livelli']},
+   ],slideScript:[]},
 ];
 
 function StudioPage(){
   const [locked,setLocked]=React.useState(true);
   const [pwd,setPwd]=React.useState('');
   const [err,setErr]=React.useState(false);
-  const [sezione,setSezione]=React.useState(null);
-  const [tabSezione,setTabSezione]=React.useState('studio'); // 'studio' | 'script'
-  const [openBlock,setOpenBlock]=React.useState(null);
+  // view: 'home' | 'argomento' | 'ppt'
+  const [view,setView]=React.useState('home');
+  const [sezioneId,setSezioneId]=React.useState(null);
+  const [openBlocks,setOpenBlocks]=React.useState({});
+  const [pptSlide,setPptSlide]=React.useState(0);
 
   function tryUnlock(){
     if(pwd==='1234'){setLocked(false);setErr(false);}
     else{setErr(true);setPwd('');}
   }
+  function toggleBlock(key){
+    setOpenBlocks(prev=>({...prev,[key]:!prev[key]}));
+  }
 
+  /* ── LOCK SCREEN ── */
   if(locked){
     return(
-      <div className="page fi" style={{minHeight:'60vh',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'1rem',paddingTop:'3rem'}}>
-        <div style={{fontSize:'2.5rem'}}>🔒</div>
-        <p style={{fontFamily:'DM Serif Display,serif',fontSize:'1.3rem',color:'var(--gold)',textAlign:'center'}}>Area Studio</p>
-        <p style={{fontSize:'.8rem',color:'var(--txt3)',textAlign:'center',maxWidth:'260px'}}>Spiegazioni approfondite, discorsi per ogni slide e keywords da memorizzare.</p>
-        <div style={{display:'flex',flexDirection:'column',gap:'.5rem',width:'100%',maxWidth:'280px'}}>
-          <input
-            type="password" placeholder="Password" value={pwd}
-            onChange={e=>{setPwd(e.target.value);setErr(false);}}
-            onKeyDown={e=>{if(e.key==='Enter')tryUnlock();}}
-            style={{padding:'.7rem 1rem',borderRadius:'9px',background:'rgba(255,255,255,.06)',border:`1px solid ${err?'#e8533c':'var(--border2)'}`,color:'var(--txt)',fontFamily:'DM Sans,sans-serif',fontSize:'.95rem',outline:'none',width:'100%',textAlign:'center',letterSpacing:'.2em'}}
-            autoFocus
-          />
-          {err&&<p style={{color:'#e8533c',fontSize:'.75rem',textAlign:'center'}}>❌ Password errata</p>}
-          <button className="btn btn-g btn-full" onClick={tryUnlock}>Accedi →</button>
+      <div style={{minHeight:'60vh',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'1rem',padding:'2rem 1rem'}}>
+        <p style={{fontSize:'1.1rem',fontWeight:700,color:'var(--txt)'}}>🔒 Area Studio</p>
+        <p style={{fontSize:'.8rem',color:'var(--txt3)',textAlign:'center'}}>Sezione riservata ai presentatori</p>
+        <input
+          type="password" placeholder="Password" value={pwd}
+          onChange={e=>{setPwd(e.target.value);setErr(false);}}
+          onKeyDown={e=>{if(e.key==='Enter')tryUnlock();}}
+          style={{padding:'.65rem 1rem',borderRadius:'8px',background:'rgba(255,255,255,.06)',border:`1px solid ${err?'#e55':'var(--border2)'}`,color:'var(--txt)',fontFamily:'DM Sans,sans-serif',fontSize:'.95rem',outline:'none',width:'220px',textAlign:'center',letterSpacing:'.2em'}}
+          autoFocus
+        />
+        {err&&<p style={{color:'#e55',fontSize:'.75rem'}}>Password errata</p>}
+        <button className="btn btn-g" style={{width:'220px'}} onClick={tryUnlock}>Entra</button>
+      </div>
+    );
+  }
+
+  /* ── PPT: lista slide ── */
+  if(view==='ppt'){
+    const sl=slidesPPT[pptSlide];
+    return(
+      <div style={{padding:'0 0 2rem'}}>
+        <div style={{display:'flex',gap:'.5rem',alignItems:'center',padding:'.5rem 0',marginBottom:'.5rem'}}>
+          <button onClick={()=>setView('home')} style={{background:'none',border:'none',color:'var(--txt2)',fontSize:'.8rem',cursor:'pointer',padding:'.3rem 0'}}>← Home</button>
+          <span style={{color:'var(--txt3)',fontSize:'.75rem'}}>/ PowerPoint</span>
+        </div>
+
+        {/* Selettore slide */}
+        <div style={{overflowX:'auto',display:'flex',gap:'.3rem',paddingBottom:'.5rem',marginBottom:'.75rem'}}>
+          {slidesPPT.map((s,i)=>(
+            <button key={i} onClick={()=>setPptSlide(i)} style={{
+              flexShrink:0,padding:'.3rem .55rem',borderRadius:'6px',border:'none',cursor:'pointer',
+              background:i===pptSlide?'var(--gold)':'rgba(255,255,255,.08)',
+              color:i===pptSlide?'#07111e':'var(--txt3)',
+              fontFamily:'DM Sans,sans-serif',fontSize:'.72rem',fontWeight:i===pptSlide?700:400,
+            }}>{s.n}</button>
+          ))}
+        </div>
+
+        {/* Contenuto slide */}
+        {(()=>{
+          const argColors={'SAR':'var(--org)','ORG':'var(--org)','LSA':'var(--lsa)','FIRE':'var(--fire)','GMDSS':'var(--gmdss)','NAV':'var(--nav)','INTRO':'var(--txt3)','FINE':'var(--gold)'};
+          const c=argColors[sl.arg]||'var(--txt3)';
+          return(
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',borderLeft:'3px solid '+c,paddingLeft:'.8rem',marginBottom:'1rem'}}>
+              <div>
+                <p style={{fontSize:'.65rem',color:'var(--txt3)',marginBottom:'.2rem',textTransform:'uppercase',letterSpacing:'.06em'}}>Slide {sl.n} di {slidesPPT.length}</p>
+                <p style={{fontSize:'.95rem',fontWeight:700,color:'var(--txt)',lineHeight:1.3}}>{sl.titolo}</p>
+              </div>
+              <span style={{flexShrink:0,marginLeft:'.5rem',marginTop:'.1rem',fontSize:'.68rem',fontWeight:700,padding:'.2rem .5rem',borderRadius:'5px',background:c+'22',color:c,border:'1px solid '+c+'55',letterSpacing:'.04em'}}>{sl.arg}</span>
+            </div>
+          );
+        })()}
+
+        {/* COSA DIRE */}
+        <div style={{marginBottom:'.75rem'}}>
+          <p style={{fontSize:'.7rem',fontWeight:700,color:'var(--gold)',marginBottom:'.35rem',textTransform:'uppercase',letterSpacing:'.05em'}}>▶ COSA DIRE</p>
+          <p style={{fontSize:'.83rem',color:'var(--txt)',lineHeight:1.85,background:'rgba(255,255,255,.04)',borderRadius:'8px',padding:'.65rem .75rem',borderLeft:'2px solid var(--gold)'}}>{sl.cosaDire}</p>
+        </div>
+
+        {/* COSA SAPERE */}
+        <div style={{marginBottom:'.75rem'}}>
+          <p style={{fontSize:'.7rem',fontWeight:700,color:'#4ab87e',marginBottom:'.35rem',textTransform:'uppercase',letterSpacing:'.05em'}}>📚 COSA SAPERE IN PROFONDITÀ</p>
+          <p style={{fontSize:'.82rem',color:'var(--txt)',lineHeight:1.85,whiteSpace:'pre-wrap'}}>{sl.cosaSapere}</p>
+        </div>
+
+        {/* DOMANDE TRABOCCHETTO */}
+        <div style={{marginBottom:'1rem'}}>
+          <p style={{fontSize:'.7rem',fontWeight:700,color:'#e8533c',marginBottom:'.35rem',textTransform:'uppercase',letterSpacing:'.05em'}}>⚠ POSSIBILI DOMANDE DEL PROFESSORE</p>
+          {sl.domandeTrabocchetto.map((d,i)=>(
+            <p key={i} style={{fontSize:'.8rem',color:'var(--txt2)',lineHeight:1.7,marginBottom:'.25rem'}}>→ {d}</p>
+          ))}
+        </div>
+
+        {/* Nav prev/next */}
+        <div style={{display:'flex',gap:'.5rem',marginTop:'.5rem'}}>
+          <button className="btn btn-o" style={{flex:1,opacity:pptSlide===0?.3:1}} disabled={pptSlide===0} onClick={()=>setPptSlide(p=>p-1)}>← Prec</button>
+          <button className="btn btn-g" style={{flex:1,opacity:pptSlide===slidesPPT.length-1?.3:1}} disabled={pptSlide===slidesPPT.length-1} onClick={()=>setPptSlide(p=>p+1)}>Succ →</button>
         </div>
       </div>
     );
   }
 
-  if(sezione){
-    const s=studioSections.find(x=>x.id===sezione);
+  /* ── ARGOMENTO ── */
+  if(view==='argomento'){
+    const s=studioSections.find(x=>x.id===sezioneId);
     return(
-      <div className="page fi">
-        <button className="btn btn-o" style={{marginBottom:'1rem',fontSize:'.78rem',padding:'.4rem .75rem'}} onClick={()=>{setSezione(null);setOpenBlock(null);}}>← Indietro</button>
-        <div style={{display:'flex',alignItems:'center',gap:'.6rem',marginBottom:'.3rem'}}>
-          <span style={{fontSize:'1.5rem'}}>{s.ico}</span>
-          <p style={{fontFamily:'DM Serif Display,serif',fontSize:'1.15rem',color:s.colore,lineHeight:1.2}}>{s.titolo}</p>
+      <div style={{padding:'0 0 2rem'}}>
+        <div style={{display:'flex',gap:'.5rem',alignItems:'center',padding:'.5rem 0',marginBottom:'.5rem'}}>
+          <button onClick={()=>setView('home')} style={{background:'none',border:'none',color:'var(--txt2)',fontSize:'.8rem',cursor:'pointer',padding:'.3rem 0'}}>← Home</button>
+          <span style={{color:'var(--txt3)',fontSize:'.75rem'}}>/ {s.titolo}</span>
         </div>
 
-        {/* Tab selector */}
-        {s.slideScript.length>0&&(
-          <div style={{display:'flex',gap:'.4rem',marginBottom:'.9rem',marginTop:'.5rem'}}>
-            {[{id:'studio',l:'📖 Studio'},{id:'script',l:'🎤 Discorso slide'}].map(t=>(
-              <button key={t.id} onClick={()=>setTabSezione(t.id)}
-                style={{flex:1,padding:'.5rem',borderRadius:'8px',border:'none',cursor:'pointer',fontFamily:'DM Sans,sans-serif',fontSize:'.78rem',fontWeight:500,
-                  background:tabSezione===t.id?s.colore:'rgba(255,255,255,.06)',
-                  color:tabSezione===t.id?'#07111e':'var(--txt2)',
-                  transition:'all .15s'}}>
-                {t.l}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {tabSezione==='studio'&&s.contenuto.map((block,i)=>{
+        {s.contenuto.map((block,i)=>{
+          const key=`${s.id}-${i}`;
           if(block.tipo==='intro'){
             return(
-              <div key={i} className="card" style={{background:`${s.colore}0d`,border:`1px solid ${s.colore}33`,marginBottom:'.75rem'}}>
-                <p style={{fontSize:'.83rem',color:'var(--txt2)',lineHeight:1.82}}>{withAcr(block.testo)}</p>
-              </div>
+              <p key={i} style={{fontSize:'.82rem',color:'var(--txt2)',lineHeight:1.85,marginBottom:'.75rem',borderLeft:'2px solid var(--txt3)',paddingLeft:'.6rem'}}>{block.testo}</p>
             );
           }
           if(block.tipo==='sezione'){
-            const isOpen=openBlock===`${sezione}-${i}`;
+            const isOpen=!!openBlocks[key];
             return(
-              <div key={i} className="card card-tap" style={{marginBottom:'.4rem'}} onClick={()=>setOpenBlock(isOpen?null:`${sezione}-${i}`)}>
-                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                  <span style={{fontWeight:600,fontSize:'.85rem',color:s.colore}}>{block.titolo}</span>
-                  <span style={{color:'var(--txt3)',fontSize:'.75rem'}}>{isOpen?'▲':'▼'}</span>
-                </div>
+              <div key={i} style={{borderBottom:'1px solid var(--border)',marginBottom:0}}>
+                <button onClick={()=>toggleBlock(key)} style={{
+                  width:'100%',textAlign:'left',background:'none',border:'none',cursor:'pointer',
+                  padding:'.65rem 0',display:'flex',justifyContent:'space-between',alignItems:'center',
+                  fontFamily:'DM Sans,sans-serif',
+                }}>
+                  <span style={{fontSize:'.85rem',fontWeight:600,color:'var(--txt)'}}>{block.titolo}</span>
+                  <span style={{color:'var(--txt3)',fontSize:'.75rem',flexShrink:0,marginLeft:'.5rem'}}>{isOpen?'▲':'▼'}</span>
+                </button>
                 {isOpen&&(
-                  <div style={{marginTop:'.65rem',paddingTop:'.65rem',borderTop:'1px solid var(--border)',animation:'fu .2s ease'}}>
+                  <div style={{paddingBottom:'.75rem'}}>
                     {block.testo.split('\n').map((line,li)=>(
-                      <p key={li} style={{fontSize:'.81rem',color:'var(--txt2)',lineHeight:1.82,marginBottom:line===''?'.3rem':0}}>{line===''?'':withAcr(line)}</p>
+                      <p key={li} style={{fontSize:'.81rem',color:'var(--txt2)',lineHeight:1.88,marginBottom:line===''?'.4rem':0}}>{line===''?'':line}</p>
                     ))}
                   </div>
                 )}
@@ -977,13 +1058,10 @@ function StudioPage(){
           }
           if(block.tipo==='keyword'){
             return(
-              <div key={i} className="card" style={{background:'rgba(226,168,54,.06)',border:'1px solid rgba(226,168,54,.18)',marginTop:'.4rem'}}>
-                <p style={{fontSize:'.72rem',color:'var(--gold2)',fontWeight:700,marginBottom:'.5rem',letterSpacing:'.04em'}}>🔑 KEYWORDS DA MEMORIZZARE</p>
+              <div key={i} style={{marginTop:'.75rem',paddingTop:'.75rem',borderTop:'2px solid var(--gold)'}}>
+                <p style={{fontSize:'.7rem',fontWeight:700,color:'var(--gold)',marginBottom:'.4rem',textTransform:'uppercase',letterSpacing:'.05em'}}>🔑 Keywords da ricordare</p>
                 {block.voci.map((v,vi)=>(
-                  <div key={vi} style={{display:'flex',gap:'.5rem',alignItems:'flex-start',marginBottom:'.3rem'}}>
-                    <span style={{color:'var(--gold)',fontSize:'.75rem',flexShrink:0,marginTop:'.05rem'}}>→</span>
-                    <p style={{fontSize:'.78rem',color:'var(--txt)',lineHeight:1.55}}>{withAcr(v)}</p>
-                  </div>
+                  <p key={vi} style={{fontSize:'.8rem',color:'var(--txt)',lineHeight:1.65,marginBottom:'.2rem'}}>→ {v}</p>
                 ))}
               </div>
             );
@@ -991,15 +1069,14 @@ function StudioPage(){
           return null;
         })}
 
-        {tabSezione==='script'&&(
-          <div style={{display:'flex',flexDirection:'column',gap:'.5rem'}}>
-            <div className="card" style={{background:'rgba(226,168,54,.07)',border:'1px solid rgba(226,168,54,.2)',marginBottom:'.35rem'}}>
-              <p style={{fontSize:'.76rem',color:'var(--gold2)',lineHeight:1.7}}>💡 Questi sono i discorsi da dire davanti alla slide. Non leggerli — usali come traccia per parlare a braccio con le parole giuste.</p>
-            </div>
+        {/* Script slide se presenti */}
+        {s.slideScript&&s.slideScript.length>0&&(
+          <div style={{marginTop:'1.25rem',paddingTop:'.75rem',borderTop:'1px solid var(--border)'}}>
+            <p style={{fontSize:'.7rem',fontWeight:700,color:'var(--gold)',marginBottom:'.5rem',textTransform:'uppercase',letterSpacing:'.05em'}}>🎤 Cosa dire nelle slide di questo argomento</p>
             {s.slideScript.map((sc,si)=>(
-              <div key={si} className="card" style={{background:'rgba(255,255,255,.04)'}}>
-                <p style={{fontSize:'.68rem',color:s.colore,fontWeight:700,marginBottom:'.4rem',textTransform:'uppercase',letterSpacing:'.06em'}}>{sc.slide}</p>
-                <p style={{fontSize:'.82rem',color:'var(--txt)',lineHeight:1.8,fontStyle:'italic'}}>"…{sc.testo}…"</p>
+              <div key={si} style={{marginBottom:'.65rem'}}>
+                <p style={{fontSize:'.68rem',color:'var(--txt3)',marginBottom:'.2rem'}}>{sc.slide}</p>
+                <p style={{fontSize:'.81rem',color:'var(--txt)',lineHeight:1.82,paddingLeft:'.5rem',borderLeft:'2px solid rgba(226,168,54,.4)'}}>{sc.testo}</p>
               </div>
             ))}
           </div>
@@ -1008,27 +1085,31 @@ function StudioPage(){
     );
   }
 
+  /* ── HOME ── */
   return(
-    <div className="page fi">
-      <p className="ph">📖 Area Studio</p>
-      <p className="ps">Spiegazioni profonde, discorsi per ogni slide, keywords da memorizzare</p>
-      <div className="card" style={{background:'rgba(226,168,54,.07)',border:'1px solid rgba(226,168,54,.2)',marginBottom:'.9rem'}}>
-        <p style={{fontSize:'.8rem',color:'var(--txt2)',lineHeight:1.75}}>
-          Ogni sezione ha due modalità: <b style={{color:'var(--gold)'}}>Studio</b> per capire in profondità, <b style={{color:'var(--gold)'}}>Discorso slide</b> per sapere esattamente cosa dire davanti al professore.
-        </p>
+    <div style={{padding:'0 0 2rem'}}>
+      <p style={{fontSize:'.95rem',fontWeight:700,color:'var(--txt)',marginBottom:'.15rem'}}>Area Studio</p>
+      <p style={{fontSize:'.75rem',color:'var(--txt3)',marginBottom:'1rem'}}>Sezione privata — solo per i presentatori</p>
+
+      {/* PPT card in cima */}
+      <div
+        onClick={()=>{setView('ppt');setPptSlide(0);}}
+        style={{border:'1px solid var(--gold)',borderRadius:'10px',padding:'.75rem',marginBottom:'1rem',cursor:'pointer',background:'rgba(226,168,54,.06)'}}>
+        <p style={{fontWeight:700,fontSize:'.88rem',color:'var(--gold)',marginBottom:'.2rem'}}>🎤 PowerPoint — Guida slide per slide</p>
+        <p style={{fontSize:'.75rem',color:'var(--txt2)'}}>Per ogni slide: cosa dire, cosa sapere in profondità, domande probabili del professore. {slidesPPT.length} slide totali.</p>
       </div>
-      {studioSections.map(s=>(
-        <div key={s.id} className="card card-tap" style={{marginBottom:'.45rem',borderLeft:`3px solid ${s.colore}`}} onClick={()=>{setSezione(s.id);setTabSezione('studio');setOpenBlock(null);}}>
-          <div style={{display:'flex',alignItems:'center',gap:'.75rem'}}>
-            <span style={{fontSize:'1.3rem'}}>{s.ico}</span>
-            <div style={{flex:1}}>
-              <p style={{fontWeight:600,fontSize:'.88rem',color:'var(--txt)'}}>{s.titolo}</p>
-              <p style={{fontSize:'.7rem',color:'var(--txt3)',marginTop:'.1rem'}}>
-                {s.slideScript.length>0?`${s.contenuto.filter(c=>c.tipo==='sezione').length} argomenti · ${s.slideScript.length} slide`:`${s.contenuto.filter(c=>c.tipo==='sezione').length} argomenti`}
-              </p>
-            </div>
-            <span style={{color:'var(--txt3)'}}>›</span>
+
+      {/* Argomenti */}
+      <p style={{fontSize:'.7rem',color:'var(--txt3)',marginBottom:'.4rem',textTransform:'uppercase',letterSpacing:'.05em'}}>Argomenti</p>
+      {studioSections.filter(s=>!s.isPPT).map(s=>(
+        <div key={s.id}
+          onClick={()=>{setSezioneId(s.id);setView('argomento');}}
+          style={{borderBottom:'1px solid var(--border)',padding:'.6rem 0',cursor:'pointer',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+          <div>
+            <p style={{fontSize:'.85rem',fontWeight:600,color:'var(--txt)'}}>{s.ico} {s.titolo}</p>
+            <p style={{fontSize:'.7rem',color:'var(--txt3)',marginTop:'.1rem'}}>{s.contenuto.filter(c=>c.tipo==='sezione').length} sezioni</p>
           </div>
+          <span style={{color:'var(--txt3)',fontSize:'.8rem'}}>›</span>
         </div>
       ))}
     </div>
@@ -1040,7 +1121,6 @@ function AboutPage(){
     {nome:'Sicuso',ruolo:'Gruppo SafeSea'},
     {nome:'Covato',ruolo:'Gruppo SafeSea'},
     {nome:'Bitonti',ruolo:'Gruppo SafeSea'},
-    {nome:'Sicuso',ruolo:'Gruppo SafeSea'},
   ];
   return(
     <div className="page fi">
